@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
+using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
 using System;
@@ -10,39 +12,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 {
-    public class CreateEducationCommandHandler : IRequestHandler<CreateEducationCommand, Education>
+    public class CreateExperienceCommandHandler : IRequestHandler<CreateExperienceCommand, ExperienceViewModel>
     {
         private readonly IAppDbContext _context;
-        private readonly ILogger _logger;
         private readonly ICurrentUserService _currentUser;
-        public CreateEducationCommandHandler(
+        private readonly ILogger<CreateExperienceCommandHandler> _logger;
+        private readonly IMapper _mapper;
+        public CreateExperienceCommandHandler(
             IAppDbContext context,
-            ILogger logger,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ILogger<CreateExperienceCommandHandler> logger,
+            IMapper mapper)
         {
             _context = context;
-            _logger = logger;
             _currentUser = currentUserService;
+            _mapper = mapper;
+            _logger = logger;
         }
-        public async Task<Education> Handle(CreateEducationCommand request, CancellationToken cancellationToken)
+
+        async Task<ExperienceViewModel> IRequestHandler<CreateExperienceCommand, ExperienceViewModel>.Handle(CreateExperienceCommand request, CancellationToken cancellationToken)
         {
-            Education education = new(
-                request.Name,
+            Experience experience = new(
+                request.CompanyName,
                 request.Description,
+                request.Position,
+                request.WorkType,
                 request.City,
                 request.FromDate,
                 request.ToDate,
-                request.EducationWebSiteUrl,
                 _currentUser.UserId);
             try
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken) ?? throw new NotFoundException("User not found!");
 
-                education.User = user;
+                experience.User = user;
 
-                await _context.Educations.AddAsync(education, cancellationToken);
+                await _context.Experiences.AddAsync(experience, cancellationToken);
 
                 await _context.SaveChangesAsync(cancellationToken);
             }
@@ -51,7 +58,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
                 _logger.LogInformation("An error occurred: {ex.Message}", ex.Message);
             }
 
-            return education;
+            return _mapper.Map<ExperienceViewModel>(experience);
         }
     }
 }

@@ -29,32 +29,29 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
         }
         public async Task<Certificate> Handle(CreateCertificateCommand request, CancellationToken cancellationToken)
         {
-            var userId = _currentUser.UserId;
-
-            Certificate certificate = new(
-                request.Name,
-                request.Description,
-                request.CertificateUrl,
-                request.Credential,
-                request.Issued,
-                userId);
-
             try
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken) ?? throw new NotFoundException("User not found!");
-
-                certificate.User = user;
+                Certificate certificate = (await _context.Users.Include(x => x.Certificates)
+                                .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken))?
+                                    .Certificates.FirstOrDefault(x => x.Credential == request.Credential)
+                                        ?? new(
+                                                request.Name,
+                                                request.Description,
+                                                request.CertificateUrl,
+                                                request.Credential,
+                                                request.Issued,
+                                                _currentUser.UserId);
 
                 await _context.Certificates.AddAsync(certificate, cancellationToken);
 
                 await _context.SaveChangesAsync(cancellationToken);
+                return certificate;
             }
             catch (Exception ex)
             {
                 _logger.LogInformation("An error occurred: {ex.Message}", ex.Message);
+                throw new AlreadyExistsException("Certificate my already exists", ex);
             }
-
-            return certificate;
         }
     }
 }

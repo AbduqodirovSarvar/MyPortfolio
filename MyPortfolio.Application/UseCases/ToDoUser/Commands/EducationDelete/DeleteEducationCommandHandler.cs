@@ -9,35 +9,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationDelete
 {
-    public class DeleteCertificateCommandHandler : IRequestHandler<DeleteCertificateCommand, bool>
+    public class DeleteEducationCommandHandler : IRequestHandler<DeleteEducationCommand, bool>
     {
         private readonly IAppDbContext _context;
-        private readonly ILogger _logger;
         private readonly ICurrentUserService _currentUser;
-        public DeleteCertificateCommandHandler(
+        private readonly ILogger<DeleteEducationCommandHandler> _logger;
+        public DeleteEducationCommandHandler(
             IAppDbContext context,
-            ILogger logger,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ILogger<DeleteEducationCommandHandler> logger)
         {
-            _context = context;
             _logger = logger;
+            _context = context;
             _currentUser = currentUserService;
         }
-        public async Task<bool> Handle(DeleteCertificateCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteEducationCommand request, CancellationToken cancellationToken)
         {
-            var certificate = await _context.Certificates
+            var education = await _context.Educations
                                         .Where(x => x.UserId == _currentUser.UserId && x.Id == request.Id)
                                             .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Certificate not found!");
 
-            _context.Certificates.Remove(certificate);
+            _context.Educations.Remove(education);
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
             if (result)
             {
-                _logger.LogInformation("Certificate (ID: {CertificateId}) removed by user (ID: {UserId})", certificate.Id, _currentUser.UserId);
+                _logger.LogInformation("Certificate (ID: {CertificateId}) removed by user (ID: {UserId})", education.Id, _currentUser.UserId);
             }
 
             return result;

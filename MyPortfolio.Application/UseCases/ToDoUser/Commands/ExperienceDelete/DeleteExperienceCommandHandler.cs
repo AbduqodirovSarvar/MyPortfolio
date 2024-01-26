@@ -9,37 +9,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
 {
-    public class DeleteCertificateCommandHandler : IRequestHandler<DeleteCertificateCommand, bool>
+    public class DeleteExperienceCommandHandler : IRequestHandler<DeleteExperienceCommand, bool>
     {
         private readonly IAppDbContext _context;
-        private readonly ILogger _logger;
         private readonly ICurrentUserService _currentUser;
-        public DeleteCertificateCommandHandler(
+        private readonly ILogger<DeleteExperienceCommandHandler> _logger;
+        public DeleteExperienceCommandHandler(
             IAppDbContext context,
-            ILogger logger,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ILogger<DeleteExperienceCommandHandler> logger
+            )
         {
             _context = context;
-            _logger = logger;
             _currentUser = currentUserService;
+            _logger = logger;
         }
-        public async Task<bool> Handle(DeleteCertificateCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteExperienceCommand request, CancellationToken cancellationToken)
         {
-            var certificate = await _context.Certificates
+            var experience = await _context.Experiences
                                         .Where(x => x.UserId == _currentUser.UserId && x.Id == request.Id)
                                             .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Certificate not found!");
 
-            _context.Certificates.Remove(certificate);
+            _context.Experiences.Remove(experience);
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
             if (result)
             {
-                _logger.LogInformation("Certificate (ID: {CertificateId}) removed by user (ID: {UserId})", certificate.Id, _currentUser.UserId);
+                _logger.LogInformation("Certificate (ID: {CertificateId}) removed by user (ID: {UserId})", experience.Id, _currentUser.UserId);
             }
-
             return result;
         }
     }
