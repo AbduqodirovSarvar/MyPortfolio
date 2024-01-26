@@ -13,6 +13,7 @@ namespace MyPortfolio.Application.Abstractions.Interfaces
         DbSet<User> Users { get; set; }
         DbSet<UserLanguage> UserLanguages { get; set; }
         DbSet<Certificate> Certificates { get; set; }
+        DbSet<Education> Educations { get; set; }
         DbSet<Experience> Experiences { get; set; }
         DbSet<Language> Languages { get; set; }
         DbSet<Project> Projects { get; set; }

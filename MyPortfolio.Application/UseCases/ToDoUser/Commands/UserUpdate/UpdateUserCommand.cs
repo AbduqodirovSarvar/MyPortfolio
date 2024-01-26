@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
 {
-    public class CreateUserCommand : IRequest<UserViewModel>
+    public class UpdateUserCommand : IRequest<UserViewModel>
     {
 
     }
