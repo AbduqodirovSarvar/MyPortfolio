@@ -2,6 +2,7 @@
 using MyPortfolio.Entity.Behaviour;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,7 @@ namespace MyPortfolio.Entity.Entities
         public string Description { get; private set; }
         [UriValidation]
         public string PhotoUrl { get; private set; }
+        [Required]
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }

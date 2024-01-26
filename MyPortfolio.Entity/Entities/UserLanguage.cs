@@ -2,6 +2,7 @@
 using MyPortfolio.Entity.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,11 @@ namespace MyPortfolio.Entity.Entities
             UserId = userId;
             LanguageLevel = languageLevel;
         }
+        [Required]
         public long LanguageId { get; private set; }
         [ForeignKey(nameof(LanguageId))]
         public Language? Language { get; set; }
+        [Required]
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }

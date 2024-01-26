@@ -1,5 +1,5 @@
 ﻿using MyPortfolio.Entity.Abstraction;
-using MyPortfolio.Entity.Enums;
+using MyPortfolio.Entity.Behaviour;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,39 +10,34 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
-    public sealed record Experience : BaseEntity
+    public sealed record Education : BaseEntity
     {
-        public Experience(
-            string companyName,
+        public Education(
+            string name,
             string description,
-            string position,
-            WorkType workType,
             string city,
             DateOnly fromDate,
             DateOnly toDate,
-            long userId
-            ): base()
+            string educationWebSiteUrl
+            ):base() 
         {
-            CompanyName = companyName;
+            Name = name;
             Description = description;
-            Position = position;
-            WorkType = workType;
             City = city;
             FromDate = fromDate;
             ToDate = toDate;
-            UserId = userId;
+            EducationWebSiteUrl = educationWebSiteUrl;
         }
-        public string CompanyName { get; private set; }
+        public string Name { get; private set; }
         public string Description { get; private set; }
-        public string Position { get; private set; }
-        public WorkType WorkType { get; private set; }
         public string City { get; private set; }
         public DateOnly FromDate { get; private set; }
         public DateOnly ToDate { get; private set; }
+        [UriValidation]
+        public string EducationWebSiteUrl { get; private set; }
         [Required]
-        public long UserId { get; private set; }
+        public long UserId {  get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
-        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
     }
 }
