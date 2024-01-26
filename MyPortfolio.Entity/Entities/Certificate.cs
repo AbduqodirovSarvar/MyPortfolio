@@ -36,6 +36,7 @@ namespace MyPortfolio.Entity.Entities
         public string CertificateUrl { get; private set; }
         public string Credential {  get; private set; }
         public DateOnly Issued {  get; private set; }
+        [Required]
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }

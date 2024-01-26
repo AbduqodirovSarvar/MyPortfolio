@@ -68,6 +68,6 @@ namespace MyPortfolio.Entity.Entities
         public ICollection<Experience> Experiences { get; set; } = new HashSet<Experience>();
         public ICollection<Project> Projects { get; set; } = new HashSet<Project>();
         public ICollection<Social> Socials { get; set; } = new HashSet<Social>();
-
+        public ICollection<Education> Educations { get; set; } = new HashSet<Education>();
     }
 }

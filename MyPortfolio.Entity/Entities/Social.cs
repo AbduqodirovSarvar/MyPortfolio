@@ -3,6 +3,7 @@ using MyPortfolio.Entity.Behaviour;
 using MyPortfolio.Entity.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -21,5 +22,9 @@ namespace MyPortfolio.Entity.Entities
         [Required]
         [UriValidation]
         public string Url { get; private set; }
+        [Required]
+        public long UserId { get; private set; }
+        [ForeignKey(nameof(UserId))]
+        public User? User { get; set; }
     }
 }
