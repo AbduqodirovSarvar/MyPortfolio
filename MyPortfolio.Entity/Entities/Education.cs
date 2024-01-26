@@ -18,7 +18,8 @@ namespace MyPortfolio.Entity.Entities
             string city,
             DateOnly fromDate,
             DateOnly toDate,
-            string educationWebSiteUrl
+            string educationWebSiteUrl,
+            long userId
             ):base() 
         {
             Name = name;
@@ -27,6 +28,7 @@ namespace MyPortfolio.Entity.Entities
             FromDate = fromDate;
             ToDate = toDate;
             EducationWebSiteUrl = educationWebSiteUrl;
+            UserId = userId;
         }
         public string Name { get; private set; }
         public string Description { get; private set; }
