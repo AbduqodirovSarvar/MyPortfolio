@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,5 +42,22 @@ namespace MyPortfolio.Entity.Entities
         public long UserId {  get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
+
+        public override Education Change(object obj)
+        {
+            Task task = (obj is Education education)
+                        ? Task.Run(() =>
+                        {
+                            Name = education.Name ?? Name;
+                            Description = education.Description ?? Description;
+                            City = education.City;
+                            FromDate = education.FromDate;
+                            ToDate = education.ToDate;
+                            EducationWebSiteUrl = education.EducationWebSiteUrl ?? EducationWebSiteUrl;
+                        })
+                            : throw new ArgumentException("Invalid object type for change", nameof(obj));
+
+            return this;
+        }
     }
 }

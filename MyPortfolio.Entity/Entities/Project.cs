@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,21 @@ namespace MyPortfolio.Entity.Entities
         public string UrlToCode { get; private set; }
         [UriValidation]
         public string UrlToSite {  get; private set; }
-        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
+        public ICollection<ProjectSkill> Skills { get; set; } = new HashSet<ProjectSkill>();
+        public override Project Change(object obj)
+        {
+            Task task = (obj is Project project)
+                        ? Task.Run(() =>
+                        {
+                            Name = project.Name ?? Name;
+                            Description = project.Description ?? Description;
+                            PhotoUrl = project.PhotoUrl ?? PhotoUrl;
+                            UrlToCode = project.UrlToCode ?? UrlToCode;
+                            UrlToSite = project.UrlToSite ?? UrlToSite;
+                        })
+                            : throw new ArgumentException("Invalid object type for change", nameof(obj));
+
+            return this;
+        }
     }
 }

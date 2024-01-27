@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -43,6 +45,24 @@ namespace MyPortfolio.Entity.Entities
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
-        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
+        public ICollection<ExperienceSkill> Skills { get; set; } = new HashSet<ExperienceSkill>();
+
+        public override Experience Change(object obj)
+        {
+            Task task = (obj is Experience experience)
+                        ? Task.Run(() =>
+                        {
+                            CompanyName = experience.CompanyName ?? CompanyName;
+                            Description = experience.Description ?? Description;
+                            Position = experience.Position ?? Position;
+                            WorkType = experience.WorkType;
+                            City = experience.City ?? City;
+                            FromDate = experience.FromDate;
+                            ToDate = experience.ToDate;
+                        })
+                            : throw new ArgumentException("Invalid object type for change", nameof(obj));
+
+            return this;
+        }
     }
 }
