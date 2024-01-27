@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationDelete
 {
-    public class DeleteEducationCommandHandler : IRequestHandler<DeleteEducationCommand, bool>
+    public sealed class DeleteEducationCommandHandler : IRequestHandler<DeleteEducationCommand, bool>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;

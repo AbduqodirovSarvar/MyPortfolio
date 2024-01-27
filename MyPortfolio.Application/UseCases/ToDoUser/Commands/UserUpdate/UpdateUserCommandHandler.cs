@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserViewModel>
+    public sealed class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserViewModel>
     {
         Task<UserViewModel> IRequestHandler<UpdateUserCommand, UserViewModel>.Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {

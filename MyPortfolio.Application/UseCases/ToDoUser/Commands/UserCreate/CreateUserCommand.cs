@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate
 {
-    public class CreateUserCommand : IRequest<UserViewModel>
+    public sealed class CreateUserCommand : IRequest<UserViewModel>
     {
 
     }

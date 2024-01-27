@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
 {
-    public class CreateCertificateCommand : IRequest<Certificate>
+    public sealed class CreateCertificateCommand : IRequest<Certificate>
     {
         public CreateCertificateCommand(
             string name,

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
 {
-    public class CreateEducationCommand : IRequest<Education>
+    public sealed class CreateEducationCommand : IRequest<Education>
     {
         public CreateEducationCommand(
             string name,

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserDelete
 {
-    public class DeleteUserCommand : IRequest<bool>
+    public sealed class DeleteUserCommand : IRequest<bool>
     {
     }
 }

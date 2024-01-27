@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserDelete
 {
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool>
+    public sealed class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool>
     {
         public Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {

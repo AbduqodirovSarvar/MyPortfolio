@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
 {
-    public class DeleteExperienceCommandHandler : IRequestHandler<DeleteExperienceCommand, bool>
+    public sealed class DeleteExperienceCommandHandler : IRequestHandler<DeleteExperienceCommand, bool>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;

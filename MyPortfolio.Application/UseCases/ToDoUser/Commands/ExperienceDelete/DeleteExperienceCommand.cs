@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
 {
-    public class DeleteExperienceCommand : IRequest<bool>
+    public sealed class DeleteExperienceCommand : IRequest<bool>
     {
         public DeleteExperienceCommand(long id) 
         {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
 {
-    public class CreateSocialNetworkCommand : IRequest<SocialViewModel>
+    public sealed class CreateSocialNetworkCommand : IRequest<SocialViewModel>
     {
         public CreateSocialNetworkCommand(
             SocialNetwork socialNetwork,

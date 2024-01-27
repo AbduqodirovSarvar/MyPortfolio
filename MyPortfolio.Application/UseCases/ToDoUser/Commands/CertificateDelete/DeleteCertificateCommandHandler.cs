@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
 {
-    public class DeleteCertificateCommandHandler : IRequestHandler<DeleteCertificateCommand, bool>
+    public sealed class DeleteCertificateCommandHandler : IRequestHandler<DeleteCertificateCommand, bool>
     {
         private readonly IAppDbContext _context;
         private readonly ILogger _logger;

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 {
-    public class CreateExperienceCommandHandler : IRequestHandler<CreateExperienceCommand, ExperienceViewModel>
+    public sealed class CreateExperienceCommandHandler : IRequestHandler<CreateExperienceCommand, ExperienceViewModel>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;

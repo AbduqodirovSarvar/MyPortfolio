@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 {
-    public class CreateExperienceCommand : IRequest<ExperienceViewModel>
+    public sealed class CreateExperienceCommand : IRequest<ExperienceViewModel>
     {
         public CreateExperienceCommand(
             string companyName,

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
 {
-    public class UpdateUserCommand : IRequest<UserViewModel>
+    public sealed class UpdateUserCommand : IRequest<UserViewModel>
     {
 
     }

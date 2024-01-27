@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
 {
-    public class CreateLanguageCommandHandler : IRequestHandler<CreateLanguageCommand, UserLanguage>
+    public sealed class CreateLanguageCommandHandler : IRequestHandler<CreateLanguageCommand, UserLanguage>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserViewModel>
+    public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserViewModel>
     {
         Task<UserViewModel> IRequestHandler<CreateUserCommand, UserViewModel>.Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {

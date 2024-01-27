@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
 {
-    public class CreateCertificateCommandHandler : IRequestHandler<CreateCertificateCommand, Certificate>
+    public sealed class CreateCertificateCommandHandler : IRequestHandler<CreateCertificateCommand, Certificate>
     {
         private readonly ICurrentUserService _currentUser;
         private readonly IAppDbContext _context;

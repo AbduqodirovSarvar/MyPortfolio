@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
 {
-    public class CreateSocialNetworkCommandHandler : IRequestHandler<CreateSocialNetworkCommand, SocialViewModel>
+    public sealed class CreateSocialNetworkCommandHandler : IRequestHandler<CreateSocialNetworkCommand, SocialViewModel>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;

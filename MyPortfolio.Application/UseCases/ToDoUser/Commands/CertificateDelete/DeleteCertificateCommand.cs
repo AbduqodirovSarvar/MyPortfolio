@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
 {
-    public class DeleteCertificateCommand : IRequest<bool>
+    public sealed class DeleteCertificateCommand : IRequest<bool>
     {
         public DeleteCertificateCommand(long id) 
         {

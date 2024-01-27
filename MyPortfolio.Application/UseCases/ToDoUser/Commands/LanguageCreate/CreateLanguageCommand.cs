@@ -11,7 +11,7 @@ using MyPortfolio.Entity.Enums;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
 {
-    public class CreateLanguageCommand : IRequest<UserLanguage>
+    public sealed class CreateLanguageCommand : IRequest<UserLanguage>
     {
         public CreateLanguageCommand(string name, long userId, LanguageLevel languageLevel)
         {

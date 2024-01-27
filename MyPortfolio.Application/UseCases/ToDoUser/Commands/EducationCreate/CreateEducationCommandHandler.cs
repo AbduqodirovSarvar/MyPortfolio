@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
 {
-    public class CreateEducationCommandHandler : IRequestHandler<CreateEducationCommand, Education>
+    public sealed class CreateEducationCommandHandler : IRequestHandler<CreateEducationCommand, Education>
     {
         private readonly IAppDbContext _context;
         private readonly ILogger _logger;

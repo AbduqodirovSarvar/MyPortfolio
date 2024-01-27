@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationDelete
 {
-    public class DeleteEducationCommand : IRequest<bool>
+    public sealed class DeleteEducationCommand : IRequest<bool>
     {
         public DeleteEducationCommand(long id)
         {

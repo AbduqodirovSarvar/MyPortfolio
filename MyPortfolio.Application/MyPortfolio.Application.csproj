@@ -23,7 +23,6 @@
     <Folder Include="UseCases\ToDoUser\Commands\SocialUpdate\" />
     <Folder Include="UseCases\ToDoUser\Commands\ProjectDelete\" />
     <Folder Include="UseCases\ToDoUser\Commands\ProjectUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\CertificateUpdate\" />
     <Folder Include="UseCases\ToDoUser\Commands\ProjectCreate\" />
   </ItemGroup>
 
