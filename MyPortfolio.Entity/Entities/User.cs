@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -18,7 +20,7 @@ namespace MyPortfolio.Entity.Entities
             string? middleName,
             string email,
             string password,
-            DateOnly dateonly,
+            DateOnly birthDay,
             Gender gender,
             string profession,
             string aboutMe,
@@ -32,7 +34,7 @@ namespace MyPortfolio.Entity.Entities
             MiddleName = middleName;
             Email = email;
             Password = password;
-            BirtDay = dateonly;
+            BirthDay = birthDay;
             Gender = gender;
             Profession = profession;
             AboutMe = aboutMe;
@@ -51,7 +53,7 @@ namespace MyPortfolio.Entity.Entities
         [PasswordValidation]
         public string Password { get; private set; }
         public string? MiddleName { get; private set; }
-        public DateOnly BirtDay { get; private set; }
+        public DateOnly BirthDay { get; private set; }
         public Gender Gender { get; private set; }
         public string Profession { get; private set; }
         public string AboutMe { get; private set; }
@@ -62,12 +64,35 @@ namespace MyPortfolio.Entity.Entities
         public string PhotoUrl { get; private set; }
         [UriValidation]
         public string ResumeUrl { get; private set; }
-        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
+        public ICollection<UserSkill> Skills { get; set; } = new HashSet<UserSkill>();
         public ICollection<UserLanguage> Languages { get; set; } = new HashSet<UserLanguage>();
         public ICollection<Certificate> Certificates { get; set; } = new HashSet<Certificate>();
         public ICollection<Experience> Experiences { get; set; } = new HashSet<Experience>();
         public ICollection<Project> Projects { get; set; } = new HashSet<Project>();
         public ICollection<Social> Socials { get; set; } = new HashSet<Social>();
         public ICollection<Education> Educations { get; set; } = new HashSet<Education>();
+
+        public override User Change(object obj)
+        {
+            Task task = (obj is User user)
+                        ? Task.Run(() =>
+                        {
+                            FirstName = user.FirstName ?? FirstName;
+                            LastName = user.LastName ?? LastName;
+                            Email = user.Email ?? Email;
+                            Password = user.Password ?? Password;
+                            MiddleName = user.MiddleName ?? MiddleName;
+                            BirthDay = user.BirthDay;
+                            Gender = user.Gender;
+                            Profession = user.Profession ?? Profession;
+                            AboutMe = user.AboutMe ?? AboutMe;
+                            PhoneNumber = user.PhoneNumber ?? PhoneNumber;
+                            PhotoUrl = user.PhotoUrl ?? PhotoUrl;
+                            ResumeUrl = user.ResumeUrl ?? ResumeUrl;
+                        })
+                            : throw new ArgumentException("Invalid object type for change", nameof(obj));
+
+            return this;
+        }
     }
 }

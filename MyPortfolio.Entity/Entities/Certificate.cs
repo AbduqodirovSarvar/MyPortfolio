@@ -40,6 +40,22 @@ namespace MyPortfolio.Entity.Entities
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
-        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
+        public ICollection<CertificateSkill> Skills { get; set; } = new HashSet<CertificateSkill>();
+
+        public override Certificate Change(object obj)
+        {
+            Task task = (obj is Certificate certificate)
+                        ? Task.Run(() =>
+                        {
+                            Name = certificate.Name ?? Name;
+                            Description = certificate.Description ?? Description;
+                            CertificateUrl = certificate.CertificateUrl ?? CertificateUrl;
+                            Credential = certificate.Credential ?? Credential;
+                            Issued = certificate.Issued;
+                        })
+                            : throw new ArgumentException("Invalid object type for change", nameof(obj));
+
+            return this;
+        }
     }
 }
