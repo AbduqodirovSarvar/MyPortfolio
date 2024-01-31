@@ -25,7 +25,7 @@ namespace MyPortfolio.Entity.Entities
             string profession,
             string aboutMe,
             string phoneNumber,
-            string photoUrl,
+            string? photoUrl,
             string resumeUrl
             ) :base() 
         {
@@ -61,7 +61,7 @@ namespace MyPortfolio.Entity.Entities
         [PhoneNumberValidation]
         public string PhoneNumber { get; private set; }
         [UriValidation]
-        public string PhotoUrl { get; private set; }
+        public string? PhotoUrl { get; private set; }
         [UriValidation]
         public string ResumeUrl { get; private set; }
         public ICollection<UserSkill> Skills { get; set; } = new HashSet<UserSkill>();

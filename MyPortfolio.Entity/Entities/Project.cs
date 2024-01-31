@@ -16,7 +16,7 @@ namespace MyPortfolio.Entity.Entities
         public Project(
             string name,
             string description,
-            string photoUrl,
+            string? photoUrl,
             long userId,
             string urlToCode,
             string urlToSite
@@ -32,7 +32,7 @@ namespace MyPortfolio.Entity.Entities
         public string Name { get; private set; }
         public string Description { get; private set; }
         [UriValidation]
-        public string PhotoUrl { get; private set; }
+        public string? PhotoUrl { get; private set; }
         [Required]
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
