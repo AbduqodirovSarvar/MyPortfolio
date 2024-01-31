@@ -12,17 +12,13 @@
 
   <ItemGroup>
     <Folder Include="Models\Dtos\" />
-    <Folder Include="UseCases\ToDoUser\Commands\SkillDelete\" />
-    <Folder Include="UseCases\ToDoUser\Commands\SkillUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\SkillCreate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\SocialDelete\" />
-    <Folder Include="UseCases\ToDoUser\Commands\SocialUpdate\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 

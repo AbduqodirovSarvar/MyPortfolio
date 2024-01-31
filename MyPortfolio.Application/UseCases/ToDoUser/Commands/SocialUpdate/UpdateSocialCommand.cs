@@ -9,18 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialUpdate
 {
-    public sealed class CreateSocialNetworkCommand : IRequest<SocialViewModel>
+    public sealed class UpdateSocialCommand : IRequest<SocialViewModel>
     {
-        public CreateSocialNetworkCommand(
-            string socialNetwork,
-            string url
-            )
-        {
+        public UpdateSocialCommand(long id, string socialNetwork, string url)
+        { 
+            Id = id;
             SocialNetwork = socialNetwork;
             Url = url;
         }
+        public long Id { get; set; }
         public string SocialNetwork { get; set; }
         public string Url { get; set; }
     }

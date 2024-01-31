@@ -8,6 +8,6 @@ namespace MyPortfolio.Application.Abstractions.Interfaces
 {
     public interface IHashService
     {
-        string Hash(string password);
+        string GetHash(string password);
     }
 }

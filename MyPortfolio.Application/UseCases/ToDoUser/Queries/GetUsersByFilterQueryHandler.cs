@@ -26,11 +26,19 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
         {
             var users = await _context.Users
                                 .Include(x => x.Languages)
+                                .ThenInclude(x => x.Language)
                                 .Include(x => x.Projects)
+                                .ThenInclude(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Certificates)
+                                .ThenInclude(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Educations)
                                 .Include(x => x.Experiences)
+                                .ThenInclude(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Socials)
                                 .ToListAsync(cancellationToken);
 

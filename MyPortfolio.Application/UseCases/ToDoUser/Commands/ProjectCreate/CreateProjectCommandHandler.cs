@@ -13,19 +13,19 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
 {
-    public sealed class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, ProjectViewModel>
+    public sealed class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, Project>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly IMapper _mapper;
         private readonly ILogger<CreateProjectCommandHandler> _logger;
-        private readonly ISaveFileService _saveFileService;
+        private readonly IFileService _saveFileService;
         public CreateProjectCommandHandler(
             IAppDbContext appDbContext,
             ICurrentUserService currentUserService,
             IMapper mapper,
             ILogger<CreateProjectCommandHandler> logger,
-            ISaveFileService saveFileService
+            IFileService saveFileService
             )
         {
             _context = appDbContext;
@@ -34,12 +34,12 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
             _logger = logger;
             _saveFileService = saveFileService;
         }
-        async Task<ProjectViewModel> IRequestHandler<CreateProjectCommand, ProjectViewModel>.Handle(CreateProjectCommand request, CancellationToken cancellationToken)
+        async Task<Project> IRequestHandler<CreateProjectCommand, Project>.Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
             var project = new Project(
                                 request.Name,
                                 request.Description,
-                                (await _saveFileService.SaveFileAsync(request.Photo)).ToString(),
+                                (await _saveFileService.SaveFileAsync(request.Photo))?.ToString(),
                                 _currentUser.UserId,
                                 request.UrlToCode,
                                 request.UrlToSite);
@@ -60,7 +60,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
 
             _logger.LogInformation("Project created by user (ID: {_currentUser.UserId})", _currentUser.UserId);
 
-            return _mapper.Map<ProjectViewModel>(project);
+            return project;
         }
     }
 }

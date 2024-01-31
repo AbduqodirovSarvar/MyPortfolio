@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
+using MyPortfolio.Entity.Enums;
+using MyPortfolio.Entity.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +32,22 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
             _mapper = mapper;
             _logger = logger;
         }
-        Task<SocialViewModel> IRequestHandler<CreateSocialNetworkCommand, SocialViewModel>.Handle(CreateSocialNetworkCommand request, CancellationToken cancellationToken)
+        async Task<SocialViewModel> IRequestHandler<CreateSocialNetworkCommand, SocialViewModel>.Handle(CreateSocialNetworkCommand request, CancellationToken cancellationToken)
         {
+            var social = await _context.Socials
+                                       .FirstOrDefaultAsync(x => x.SocialNetwork == (SocialNetwork)Enum.Parse(typeof(string), request.SocialNetwork) 
+                                                                    && x.UserId == _currentUser.UserId, cancellationToken)
+                                       !?? throw new AlreadyExistsException("Social network already exists for the user");
 
-            throw new NotImplementedException();
+            await _context.Socials.AddAsync(social, cancellationToken);
+            bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
+
+            string resultMessage = result ? "Social network (ID: {socialId}) removed by user (ID: {UserId})"
+                                      : "Social network (ID: {socialID}) couldn't remove by user (ID: {UserId})";
+
+            _logger.LogInformation(resultMessage, social.Id, _currentUser.UserId);
+
+            return _mapper.Map<SocialViewModel>(social);
         }
     }
 }

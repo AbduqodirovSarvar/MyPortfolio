@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.Abstractions.Interfaces
 {
-    public interface ISaveFileService
+    public interface IFileService
     {
-        Task<Uri> SaveFileAsync(IFormFile uri);
+        Task<Uri?> SaveFileAsync(IFormFile? uri);
+        Task RemoveFileAsync(string? url);
     }
 }

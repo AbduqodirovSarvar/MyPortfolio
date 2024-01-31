@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.Models.ViewModels
+namespace MyPortfolio.Application.Abstractions.Interfaces
 {
-    internal class ProjectViewModel
+    public interface ILogInformation
     {
+        Task Logging(string name);
     }
 }

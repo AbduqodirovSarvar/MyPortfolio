@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserDelete
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillDelete
 {
-    public sealed class DeleteUserCommand : IRequest<bool>
+    public sealed class DeleteSkillCommand : IRequest<bool>
     {
-        public DeleteUserCommand(long id) 
+        public DeleteSkillCommand(long skillId)
         {
-            Id = id;
+            Id = skillId;
         }
         public long Id { get; set; }
     }

@@ -31,13 +31,22 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
         {
             var user = await _context.Users
                                 .Include(x => x.Languages)
+                                .ThenInclude(x => x.Language)
                                 .Include(x => x.Projects)
+                                .ThenInclude(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Certificates)
+                                .ThenInclude(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Educations)
                                 .Include(x => x.Experiences)
+                                .ThenInclude(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Skills)
+                                .ThenInclude(x => x.Skill)
                                 .Include(x => x.Socials)
-                                .FirstOrDefaultAsync(x => (x.Id == request.Id) || (x.Email == request.Email), cancellationToken);
+                                .FirstOrDefaultAsync(x => (x.Id == request.Id) || (x.Email == request.Email), cancellationToken)
+                                ?? throw new NotFoundException("User not found"); ;
 
             if(user == null)
             {
@@ -47,6 +56,12 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
 
                 throw new NotFoundException("User was not found");
             }
+
+            _logger.LogInformation("User found with {identifierType} identifier: {identifierValue}",
+                                    request.Id != null ? "Id"
+                                                       : "Email", 
+                                    request.Id != null ? request.Id
+                                                       : request.Email);
 
             return _mapper.Map<UserViewModel>(user);
         }
