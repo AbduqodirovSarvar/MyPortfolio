@@ -13,15 +13,13 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
 {
     public sealed class CreateLanguageCommand : IRequest<UserLanguage>
     {
-        public CreateLanguageCommand(string name, long userId, LanguageLevel languageLevel)
+        public CreateLanguageCommand(string name, LanguageLevel languageLevel)
         {
             Name = name;
-            UserId = userId;
             LanguageLevel = languageLevel;
         }
 
         public string Name { get; set; }
-        public long UserId { get; set; }
         public LanguageLevel LanguageLevel { get; set;}
     }
 }

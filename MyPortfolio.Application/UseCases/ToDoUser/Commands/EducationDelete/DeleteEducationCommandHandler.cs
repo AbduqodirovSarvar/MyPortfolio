@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
+using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -28,17 +29,17 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationDelete
         public async Task<bool> Handle(DeleteEducationCommand request, CancellationToken cancellationToken)
         {
             var education = await _context.Educations
-                                        .Where(x => x.UserId == _currentUser.UserId && x.Id == request.Id)
-                                            .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Certificate not found!");
+                                          .FirstOrDefaultAsync(x => x.UserId == _currentUser.UserId && x.Id == request.Id, cancellationToken)
+                                          ?? throw new NotFoundException("Certificate not found!");
 
             _context.Educations.Remove(education);
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
-            if (result)
-            {
-                _logger.LogInformation("Certificate (ID: {CertificateId}) removed by user (ID: {UserId})", education.Id, _currentUser.UserId);
-            }
+            string resultMessage = result ? "Education (ID: {EducationId}) removed by user (ID: {UserId})"
+                                       : "Education (ID: {EducationId}) couldn't remove by user (ID: {UserId})";
+
+            _logger.LogInformation(resultMessage, education.Id, _currentUser.UserId);
 
             return result;
         }

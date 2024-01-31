@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
+using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -29,17 +30,17 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
         public async Task<bool> Handle(DeleteExperienceCommand request, CancellationToken cancellationToken)
         {
             var experience = await _context.Experiences
-                                        .Where(x => x.UserId == _currentUser.UserId && x.Id == request.Id)
-                                            .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Certificate not found!");
+                                           .FirstOrDefaultAsync(x => x.UserId == _currentUser.UserId && x.Id == request.Id, cancellationToken)
+                                           ?? throw new NotFoundException("Certificate not found!");
 
             _context.Experiences.Remove(experience);
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
+            string resultMessage = result ? "Experience (ID: {ExperienceId}) removed by user (ID: {UserId})"
+                                       : "Experience (ID: {ExperienceId}) couldn't remove by user (ID: {UserId})";
 
-            if (result)
-            {
-                _logger.LogInformation("Certificate (ID: {CertificateId}) removed by user (ID: {UserId})", experience.Id, _currentUser.UserId);
-            }
+            _logger.LogInformation(resultMessage, experience.Id, _currentUser.UserId);
+
             return result;
         }
     }

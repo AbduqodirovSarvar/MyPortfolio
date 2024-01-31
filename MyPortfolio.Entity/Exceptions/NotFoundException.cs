@@ -13,7 +13,7 @@ namespace MyPortfolio.Entity.Exceptions
         {
         }
 
-        public NotFoundException(string message) 
+        public NotFoundException(string message)
             : base(message)
         {
         }

@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
+namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectDelete
 {
-    public sealed class DeleteCertificateCommand : IRequest<bool>
+    public sealed class DeleteProjectCommand : IRequest<bool>
     {
-        public DeleteCertificateCommand(long id)
+        public DeleteProjectCommand(long id) 
         {
             Id = id;
         }
-
         public long Id { get; set; }
     }
 }

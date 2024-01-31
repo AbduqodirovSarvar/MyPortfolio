@@ -12,24 +12,18 @@
 
   <ItemGroup>
     <Folder Include="Models\Dtos\" />
-    <Folder Include="UseCases\ToDoUser\Commands\EducationUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\ExperienceUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\LanguageUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\LanguageDelete\" />
     <Folder Include="UseCases\ToDoUser\Commands\SkillDelete\" />
     <Folder Include="UseCases\ToDoUser\Commands\SkillUpdate\" />
     <Folder Include="UseCases\ToDoUser\Commands\SkillCreate\" />
     <Folder Include="UseCases\ToDoUser\Commands\SocialDelete\" />
     <Folder Include="UseCases\ToDoUser\Commands\SocialUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\ProjectDelete\" />
-    <Folder Include="UseCases\ToDoUser\Commands\ProjectUpdate\" />
-    <Folder Include="UseCases\ToDoUser\Commands\ProjectCreate\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
 </Project>

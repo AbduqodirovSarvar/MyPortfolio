@@ -38,13 +38,13 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
                 }
 
                 var userlanguage = new UserLanguage(
-                    language.Id,
+                    language,
                     _currentUser.UserId,
                     request.LanguageLevel
                     );
                 return userlanguage;
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
                 _logger.LogInformation("Error: {ex}", ex.Message);
                 throw new Exception(ex.Message);
