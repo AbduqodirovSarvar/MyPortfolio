@@ -47,7 +47,7 @@ namespace MyPortfolio.Application.UseCases.Security
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 };
 
-            _logger.LogInformation("Gave access token for identifier Id: {userId}", user.Id);
+            _logger.LogInformation("Gave access token for identifier Id: {Identifier}", user.Id);
 
             return new LoginViewModel(_mapper.Map<UserViewModel>(user), _tokenService.GetAccessToken(claims.ToArray()));
         }
