@@ -14,7 +14,7 @@ namespace MyPortfolio.Entity.Entities
     {
         public Certificate(
             string name,
-            string decription,
+            string description,
             string certificateUrl,
             string credential,
             DateOnly issued,
@@ -23,7 +23,7 @@ namespace MyPortfolio.Entity.Entities
             :base()
         {
             Name = name;
-            Description = decription;
+            Description = description;
             CertificateUrl = certificateUrl;
             Credential = credential;
             Issued = issued;

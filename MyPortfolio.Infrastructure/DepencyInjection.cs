@@ -18,7 +18,7 @@ namespace MyPortfolio.Infrastructure
 {
     public  static class DepencyInjection
     {
-        public static IServiceCollection InfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        public static void InfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAppDbContext, AppDbContext>();
             services.AddScoped<IHashService, HashService>();
@@ -49,8 +49,6 @@ namespace MyPortfolio.Infrastructure
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretWord))
                     };
                 });
-
-            return services;
         }
     }
 }

@@ -7,19 +7,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F3C2B9B4-759
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0801A423-38A9-4D2F-A1D2-337631783584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.Application", "MyPortfolio.Application\MyPortfolio.Application.csproj", "{917CDCA2-FE67-4AF8-AB21-5ABD584B6936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.Application", "MyPortfolio.Application\MyPortfolio.Application.csproj", "{917CDCA2-FE67-4AF8-AB21-5ABD584B6936}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.Entity", "MyPortfolio.Entity\MyPortfolio.Entity.csproj", "{5E1532E2-2819-4017-8EAB-22E3ADC28056}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.Entity", "MyPortfolio.Entity\MyPortfolio.Entity.csproj", "{5E1532E2-2819-4017-8EAB-22E3ADC28056}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{AFF372EB-E7FB-4A06-8DF0-C56E4F06A0AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.Infrastructure", "MyPortfolio.Infrastructure\MyPortfolio.Infrastructure.csproj", "{8AD82B49-1D93-4353-B6B7-B29F8915DDDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.Infrastructure", "MyPortfolio.Infrastructure\MyPortfolio.Infrastructure.csproj", "{8AD82B49-1D93-4353-B6B7-B29F8915DDDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.Presentation", "MyPortfolio.Presentation\MyPortfolio.Presentation.csproj", "{BDA4FF7A-663F-4EAE-A568-500771B66629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.Presentation", "MyPortfolio.Presentation\MyPortfolio.Presentation.csproj", "{BDA4FF7A-663F-4EAE-A568-500771B66629}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{A5BC5B50-15FE-4A6A-A7D4-EBBAB7FE1467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.WebApi", "MyPortfolio.WebApi\MyPortfolio.WebApi.csproj", "{9E4E7411-D61E-4C93-BC08-DC80ECB372F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.WebApi", "MyPortfolio.WebApi\MyPortfolio.WebApi.csproj", "{9E4E7411-D61E-4C93-BC08-DC80ECB372F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{0C06F187-867F-4353-A1AF-A3E5B246174D}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		nginx.conf = nginx.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker-compose", "Docker-compose", "{4A21F1A7-CC77-4990-B430-64DB2678A9F8}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,11 +15,11 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
     public sealed class CreateEducationCommandHandler : IRequestHandler<CreateEducationCommand, Education>
     {
         private readonly IAppDbContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<CreateEducationCommandHandler> _logger;
         private readonly ICurrentUserService _currentUser;
         public CreateEducationCommandHandler(
             IAppDbContext context,
-            ILogger logger,
+            ILogger<CreateEducationCommandHandler> logger,
             ICurrentUserService currentUserService)
         {
             _context = context;

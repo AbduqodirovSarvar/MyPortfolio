@@ -35,7 +35,7 @@ namespace MyPortfolio.Presentation.Controller
             }
         }
 
-        [HttpDelete("{id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromBody] long id)
         {
             try

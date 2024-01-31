@@ -21,7 +21,7 @@ namespace MyPortfolio.Presentation.Controller
             : base(mediator) { }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
+        public async Task<IActionResult> CreateUser([FromForm] CreateUserCommand command)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace MyPortfolio.Presentation.Controller
 
         [Authorize]
         [HttpPatch("update")]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+        public async Task<IActionResult> UpdateUser([FromForm] UpdateUserCommand command)
         {
             try
             {
@@ -48,12 +48,12 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [Authorize]
-        [HttpDelete("{userId")]
-        public async Task<IActionResult> DeleteEducation([FromBody] long userId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEducation(long id)
         {
             try
             {
-                return Ok(await _mediator.Send(new DeleteUserCommand(userId)));
+                return Ok(await _mediator.Send(new DeleteUserCommand(id)));
             }
             catch (Exception ex)
             {

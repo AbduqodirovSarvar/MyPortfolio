@@ -24,7 +24,7 @@ namespace MyPortfolio.Presentation.Controller
             : base(mediator) { }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEducation([FromBody] CreateEducationCommand command)
+        public async Task<IActionResult> CreateEducation([FromForm] CreateEducationCommand command)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateEducation([FromBody] UpdateEducationCommand command)
+        public async Task<IActionResult> UpdateEducation([FromForm] UpdateEducationCommand command)
         {
             try
             {
@@ -49,8 +49,8 @@ namespace MyPortfolio.Presentation.Controller
             }
         }
 
-        [HttpDelete("{id")]
-        public async Task<IActionResult> DeleteEducation([FromBody] long id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEducation(long id)
         {
             try
             {

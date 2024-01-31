@@ -13,7 +13,7 @@ namespace MyPortfolio.Application
 {
     public static class DepencyInjection
     {
-        public static IServiceCollection AddApplicationDepencyInjections(this IServiceCollection services)
+        public static void ApplicationServices(this IServiceCollection services)
         {
             services.AddMediatR(cfg =>
             {
@@ -29,8 +29,6 @@ namespace MyPortfolio.Application
 
             IMapper mapper = mappingconfig.CreateMapper();
             services.AddSingleton(mapper);
-
-            return services;
         }
     }
 }

@@ -15,11 +15,11 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
     public sealed class DeleteCertificateCommandHandler : IRequestHandler<DeleteCertificateCommand, bool>
     {
         private readonly IAppDbContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<DeleteCertificateCommandHandler> _logger;
         private readonly ICurrentUserService _currentUser;
         public DeleteCertificateCommandHandler(
             IAppDbContext context,
-            ILogger logger,
+            ILogger<DeleteCertificateCommandHandler> logger,
             ICurrentUserService currentUserService)
         {
             _context = context;

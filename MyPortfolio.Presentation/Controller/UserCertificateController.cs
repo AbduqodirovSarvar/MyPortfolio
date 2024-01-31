@@ -46,12 +46,12 @@ namespace MyPortfolio.Presentation.Controller
             }
         }
 
-        [HttpDelete("{certificateId")]
-        public async Task<IActionResult> DeleteCertificate([FromBody] long certificateId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCertificate([FromForm] long id)
         {
             try
             {
-                return Ok(await _mediator.Send(new DeleteCertificateCommand(certificateId)));
+                return Ok(await _mediator.Send(new DeleteCertificateCommand(id)));
             }
             catch (Exception ex)
             {

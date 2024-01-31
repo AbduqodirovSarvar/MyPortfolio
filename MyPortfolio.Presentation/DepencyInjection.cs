@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MyPortfolio.Application;
+using MyPortfolio.Application.Services;
+using MyPortfolio.Infrastructure;
 using MyPortfolio.Presentation.Controller;
 using System;
 using System.Collections.Generic;
@@ -11,9 +14,16 @@ namespace MyPortfolio.Presentation
 {
     public static class DepencyInjection
     {
-        public static IServiceCollection PresentationServices(this IServiceCollection services)
+        public static IServiceCollection PresentationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddApplicationDepencyInjections();
+            services.ApplicationServices();
+            services.InfrastructureServices(configuration);
+            services.AddControllers().AddApplicationPart(typeof(ApiController).Assembly);
+            services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+            });
             return services;
         }
     }
