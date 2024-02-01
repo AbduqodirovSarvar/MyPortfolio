@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
+using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Enums;
 using MyPortfolio.Entity.Exceptions;
 using System;
@@ -35,9 +36,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
         async Task<SocialViewModel> IRequestHandler<CreateSocialNetworkCommand, SocialViewModel>.Handle(CreateSocialNetworkCommand request, CancellationToken cancellationToken)
         {
             var social = await _context.Socials
-                                       .FirstOrDefaultAsync(x => x.SocialNetwork == (SocialNetwork)Enum.Parse(typeof(string), request.SocialNetwork) 
+                                       .FirstOrDefaultAsync(x => x.SocialNetwork == (SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork)
                                                                     && x.UserId == _currentUser.UserId, cancellationToken)
-                                       !?? throw new AlreadyExistsException("Social network already exists for the user");
+                                       ?? new Social((SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork), request.Url);
 
             await _context.Socials.AddAsync(social, cancellationToken);
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;

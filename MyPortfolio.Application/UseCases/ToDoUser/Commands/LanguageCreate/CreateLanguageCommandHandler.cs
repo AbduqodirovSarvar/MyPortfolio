@@ -41,7 +41,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
                 var userlanguage = new UserLanguage(
                     language,
                     _currentUser.UserId,
-                    (LanguageLevel)Enum.Parse(typeof(string), request.LanguageLevel)
+                    (LanguageLevel)Enum.Parse(typeof(LanguageLevel), request.LanguageLevel)
                     );
                 return userlanguage;
             }

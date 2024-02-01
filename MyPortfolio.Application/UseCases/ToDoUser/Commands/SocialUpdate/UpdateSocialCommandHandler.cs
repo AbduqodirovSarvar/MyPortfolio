@@ -36,8 +36,8 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialUpdate
                                        ?? throw new NotFoundException("Social network not found for the user");
 
             var changedSocial = new Social(
-                                        (SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork),
-                                        request.Url
+                                        request.SocialNetwork == null ? social.SocialNetwork : (SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork),
+                                        request.Url ?? social.Url
                                         );
 
             social.Change(changedSocial);

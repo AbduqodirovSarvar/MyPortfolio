@@ -34,10 +34,10 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
                                            .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken)
                                            ?? throw new NotFoundException("User not found");
 
-            user.Skills = (from name in request.Names
-                          let skill = _context.Skills.FirstOrDefault(x => x.Name == name) ?? new Skill(name)
-                          select new UserSkill(skill, user.Id)).ToList();
-
+            user.Skills.ToList().AddRange(
+                            from name in request.Names
+                            let skill = _context.Skills.FirstOrDefault(x => x.Name == name) ?? new Skill(name)
+                            select new UserSkill(skill, user.Id));
 
             await _context.SaveChangesAsync(cancellationToken);
 

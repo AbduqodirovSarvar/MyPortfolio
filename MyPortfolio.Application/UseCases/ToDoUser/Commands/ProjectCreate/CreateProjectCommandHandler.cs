@@ -44,9 +44,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
                                 request.UrlToCode,
                                 request.UrlToSite);
 
-            foreach(var skillName in request.Skills)
+            foreach (var skillName in request.Skills)
             {
-                var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillName, cancellationToken);
+                var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillName, cancellationToken) ?? new Skill(skillName);
                 if (skill == null)
                 {
                     skill = new Skill(skillName);

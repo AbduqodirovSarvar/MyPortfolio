@@ -39,7 +39,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
                 request.CompanyName,
                 request.Description,
                 request.Position,
-                (WorkType)Enum.Parse(typeof(string), request.WorkType),
+                (WorkType)Enum.Parse(typeof(WorkType), request.WorkType),
                 request.City,
                 request.FromDate,
                 request.ToDate,

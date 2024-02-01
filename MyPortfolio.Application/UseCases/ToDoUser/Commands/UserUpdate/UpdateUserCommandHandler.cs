@@ -52,7 +52,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
                                     request.Email ?? user.Email,
                                     request.Password != null ? _hashService.GetHash(request.Password) : user.Password,
                                     request.BirthDay ?? user.BirthDay,
-                                    request.Gender != null ? (Gender)Enum.Parse(typeof(string), request.Gender) : user.Gender,
+                                    request.Gender != null ? (Gender)Enum.Parse(typeof(Gender), request.Gender) : user.Gender,
                                     request.Profession ?? user.Profession,
                                     request.AboutMe ?? user.AboutMe,
                                     request.PhoneNumber ?? user.PhoneNumber,

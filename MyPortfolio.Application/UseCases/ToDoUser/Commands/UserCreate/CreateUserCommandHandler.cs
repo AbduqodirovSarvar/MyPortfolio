@@ -43,22 +43,20 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate
         {
             var user = await _context.Users
                                      .FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber || x.Email == request.Email, cancellationToken)
-                                     !?? throw new AlreadyExistsException("User laready exists with this parameters");
-
-            user = new User(
-                request.FirstName,
-                request.LastName,
-                request.MiddleName,
-                request.Email,
-                _hashService.GetHash(request.Password),
-                request.BirthDay,
-                (Gender)Enum.Parse(typeof(string), request.Gender),
-                request.Profession,
-                request.AboutMe,
-                request.PhoneNumber,
-                (await _fileService.SaveFileAsync(request.Photo))?.ToString(),
-                (await _fileService.SaveFileAsync(request.Resume))!.ToString()
-                );
+                                      ?? new User(
+                                                    request.FirstName,
+                                                    request.LastName,
+                                                    request.MiddleName,
+                                                    request.Email,
+                                                    _hashService.GetHash(request.Password),
+                                                    request.BirthDay,
+                                                    (Gender)Enum.Parse(typeof(Gender), request.Gender),
+                                                    request.Profession,
+                                                    request.AboutMe,
+                                                    request.PhoneNumber,
+                                                    (await _fileService.SaveFileAsync(request.Photo))?.ToString(),
+                                                    (await _fileService.SaveFileAsync(request.Resume))!.ToString()
+                                                    );
 
             await _context.Users.AddAsync(user, cancellationToken);
 
