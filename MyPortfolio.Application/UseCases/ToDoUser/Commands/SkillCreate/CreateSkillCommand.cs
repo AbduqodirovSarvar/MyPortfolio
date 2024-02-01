@@ -10,10 +10,6 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 {
     public sealed class CreateSkillCommand : IRequest<List<UserSkill>>
     {
-        public CreateSkillCommand(List<string> names)
-        {
-            Names = names;
-        }
-        public List<string> Names { get; set; }
+        public List<string> Names { get; set; } = new List<string>();
     }
 }

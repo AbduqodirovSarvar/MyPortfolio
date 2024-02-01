@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Entity.Entities;
+using MyPortfolio.Entity.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
                 var userlanguage = new UserLanguage(
                     language,
                     _currentUser.UserId,
-                    request.LanguageLevel
+                    (LanguageLevel)Enum.Parse(typeof(string), request.LanguageLevel)
                     );
                 return userlanguage;
             }

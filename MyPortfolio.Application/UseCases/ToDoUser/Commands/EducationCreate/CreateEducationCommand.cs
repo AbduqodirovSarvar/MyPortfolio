@@ -13,26 +13,11 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
 {
     public sealed class CreateEducationCommand : IRequest<Education>
     {
-        public CreateEducationCommand(
-            string name,
-            string description,
-            string city,
-            DateOnly fromDate,
-            DateOnly toDate,
-            string url)
-        {
-            Name = name; 
-            Description = description;
-            City = city;
-            FromDate = fromDate;
-            ToDate = toDate;
-            EducationWebSiteUrl = url;
-        }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string City { get; set; }
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
+        public string City { get; set; } = null!;
         public DateOnly FromDate { get; set; }
         public DateOnly ToDate { get; set; }
-        public string EducationWebSiteUrl { get; set; }
+        public string EducationWebSiteUrl { get; set; } = null!;
     }
 }

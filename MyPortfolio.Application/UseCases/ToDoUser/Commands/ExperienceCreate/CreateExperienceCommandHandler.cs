@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
+using MyPortfolio.Entity.Enums;
 using MyPortfolio.Entity.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
                 request.CompanyName,
                 request.Description,
                 request.Position,
-                request.WorkType,
+                (WorkType)Enum.Parse(typeof(string), request.WorkType),
                 request.City,
                 request.FromDate,
                 request.ToDate,

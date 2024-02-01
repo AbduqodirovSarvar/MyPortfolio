@@ -13,15 +13,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
 {
     public sealed class CreateSocialNetworkCommand : IRequest<SocialViewModel>
     {
-        public CreateSocialNetworkCommand(
-            string socialNetwork,
-            string url
-            )
-        {
-            SocialNetwork = socialNetwork;
-            Url = url;
-        }
-        public string SocialNetwork { get; set; }
-        public string Url { get; set; }
+        public string SocialNetwork { get; set; } = null!;
+        public string Url { get; set; } = null!;
     }
 }

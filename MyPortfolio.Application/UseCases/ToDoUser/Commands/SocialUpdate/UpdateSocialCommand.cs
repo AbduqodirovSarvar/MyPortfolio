@@ -13,14 +13,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialUpdate
 {
     public sealed class UpdateSocialCommand : IRequest<SocialViewModel>
     {
-        public UpdateSocialCommand(long id, string socialNetwork, string url)
-        { 
-            Id = id;
-            SocialNetwork = socialNetwork;
-            Url = url;
-        }
+        [Required]
         public long Id { get; set; }
-        public string SocialNetwork { get; set; }
-        public string Url { get; set; }
+        public string? SocialNetwork { get; set; }
+        public string? Url { get; set; }
     }
 }

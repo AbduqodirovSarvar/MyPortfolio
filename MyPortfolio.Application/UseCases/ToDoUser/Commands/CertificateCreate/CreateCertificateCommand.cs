@@ -14,26 +14,10 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
 {
     public sealed class CreateCertificateCommand : IRequest<Certificate>
     {
-        public CreateCertificateCommand(
-            string name,
-            string description,
-            string certificateurl,
-            string credential,
-            DateOnly issued
-            ) 
-        {
-            Name = name;
-            Description = description;
-            CertificateUrl = certificateurl;
-            Credential = credential;
-            Issued = issued;
-        }
-        
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string CertificateUrl { get; set; }
-        public string Credential { get; set; }
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
+        public string CertificateUrl { get; set; } = null!;
+        public string Credential { get; set; } = null!;
         public DateOnly Issued { get; set; }
-        public long UserId { get; set; }
     }
 }
