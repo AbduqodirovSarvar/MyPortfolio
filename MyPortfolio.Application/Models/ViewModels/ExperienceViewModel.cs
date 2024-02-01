@@ -12,6 +12,7 @@ namespace MyPortfolio.Application.Models.ViewModels
 {
     public class ExperienceViewModel
     {
+        public long Id { get; set; }
         public string? CompanyName { get; set; }
         public string? Description { get; set; }
         public string? Position { get; set; }
@@ -21,6 +22,7 @@ namespace MyPortfolio.Application.Models.ViewModels
         public DateOnly ToDate { get; set; }
         public long UserId { get; set; }
         public User? User { get; set; }
+        public DateTime CreatedTime { get; set; }
         public ICollection<ExperienceSkill> Skills { get; set; } = new HashSet<ExperienceSkill>();
     }
 }

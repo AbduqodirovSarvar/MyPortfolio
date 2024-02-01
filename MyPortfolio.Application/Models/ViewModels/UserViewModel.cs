@@ -12,6 +12,7 @@ namespace MyPortfolio.Application.Models.ViewModels
 {
     public sealed class UserViewModel
     {
+        public long Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
@@ -23,6 +24,7 @@ namespace MyPortfolio.Application.Models.ViewModels
         public string? PhoneNumber { get; set; }
         public string? PhotoUrl { get; set; }
         public string? ResumeUrl { get; private set; }
+        public DateTime CreatedTime { get; set; }
         public ICollection<UserSkill> Skills { get; set; } = new HashSet<UserSkill>();
         public ICollection<UserLanguageViewModel> Languages { get; set; } = new HashSet<UserLanguageViewModel>();
         public ICollection<Certificate> Certificates { get; set; } = new HashSet<Certificate>();

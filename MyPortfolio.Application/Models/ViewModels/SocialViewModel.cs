@@ -18,5 +18,6 @@ namespace MyPortfolio.Application.Models.ViewModels
         public string? Url { get; set; }
         public long UserId { get; set; }
         public User? User { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

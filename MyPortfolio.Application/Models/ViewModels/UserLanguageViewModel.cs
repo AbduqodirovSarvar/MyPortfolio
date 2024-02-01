@@ -18,5 +18,6 @@ namespace MyPortfolio.Application.Models.ViewModels
         public long UserId { get; private set; }
         public User? User { get; set; }
         public string? LanguageLevel { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

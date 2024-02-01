@@ -20,7 +20,7 @@ namespace MyPortfolio.Presentation.Controller
         public UserController(IMediator mediator)
             : base(mediator) { }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> CreateUser([FromForm] CreateUserCommand command)
         {
             try
@@ -34,7 +34,7 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [Authorize]
-        [HttpPatch("update")]
+        [HttpPatch]
         public async Task<IActionResult> UpdateUser([FromForm] UpdateUserCommand command)
         {
             try
@@ -61,7 +61,7 @@ namespace MyPortfolio.Presentation.Controller
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById([FromRoute] long id)
         {
             try
@@ -74,7 +74,7 @@ namespace MyPortfolio.Presentation.Controller
             }
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("mail/{email}")]
         public async Task<IActionResult> GetByEmail([FromRoute] string email)
         {
             try
