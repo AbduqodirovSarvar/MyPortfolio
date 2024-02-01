@@ -1,15 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.Services
 {
     public class FileService : IFileService
     {
+        private readonly string _filesDirectory;
+
+        public FileService()
+        {
+            // Define the base directory for storing files
+            _filesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "MyPortfolio.Application", "Files");
+
+            // Ensure the directory exists
+            Directory.CreateDirectory(_filesDirectory);
+        }
+
         public Task RemoveFileAsync(string? fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -19,7 +28,7 @@ namespace MyPortfolio.Application.Services
 
             try
             {
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "MyPortfolio.Application", "Files", fileName);
+                string filePath = Path.Combine(_filesDirectory, fileName);
                 string fullPath = Path.GetFullPath(filePath);
 
                 // Check if the file exists before attempting to delete
@@ -40,16 +49,15 @@ namespace MyPortfolio.Application.Services
 
         public async Task<Uri?> SaveFileAsync(IFormFile? file)
         {
-            if(file == null)
+            if (file == null)
             {
                 return null;
             }
-            string folderPath = Directory.GetCurrentDirectory();
-            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string filePath = Path.Combine(folderPath, "..", "MyPortfolio.Application", "Files", fileName);
-            string fp = Path.GetFullPath(filePath);
 
-            using (var stream = new FileStream(fp, FileMode.Create))
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            string filePath = Path.Combine(_filesDirectory, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
@@ -61,7 +69,7 @@ namespace MyPortfolio.Application.Services
         {
             try
             {
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "MyPortfolio.Application", "Files", fileName);
+                string filePath = Path.Combine(_filesDirectory, fileName);
                 string fullPath = Path.GetFullPath(filePath);
 
                 if (File.Exists(fullPath))
