@@ -2,6 +2,7 @@
 using MyPortfolio.Application.Abstractions.Interfaces;
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.Services
@@ -13,7 +14,9 @@ namespace MyPortfolio.Application.Services
         public FileService()
         {
             // Define the base directory for storing files
-            _filesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "MyPortfolio.Application", "Files");
+            _filesDirectory = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                                                ? Path.Combine(Directory.GetCurrentDirectory(),"..", "MyPortfolio.Application", "Files")
+                                                : Path.Combine("/root/MyPortfolio", "Files");
 
             // Ensure the directory exists
             Directory.CreateDirectory(_filesDirectory);

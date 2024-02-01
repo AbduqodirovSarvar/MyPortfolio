@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Dtos\" />
-    <Folder Include="FIles\" />
+    <Folder Include="Files\" />
   </ItemGroup>
 
   <ItemGroup>
