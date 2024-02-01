@@ -31,7 +31,7 @@ namespace MyPortfolio.Presentation.Controller
 
             string contentType = GetContentType(fileName);
 
-            return PhysicalFile(filePath, contentType, fileName);
+            return PhysicalFile(filePath, contentType);
         }
 
         [HttpGet("{fileName}/download")]
