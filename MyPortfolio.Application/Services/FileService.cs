@@ -14,11 +14,9 @@ namespace MyPortfolio.Application.Services
         public FileService()
         {
             // Define the base directory for storing files
-            /*_filesDirectory = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            _filesDirectory = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                                                 ? Path.Combine(Directory.GetCurrentDirectory(), "..", "MyPortfolio.Application", "Files")
-                                                : Path.Combine("/root/MyPortfolio", "Files");*/
-
-            _filesDirectory = Path.Combine("/root/MyPortfolio", "Files");
+                                                : Path.Combine("/app/Files");
 
             // Ensure the directory exists
             Directory.CreateDirectory(_filesDirectory);

@@ -9,6 +9,7 @@ services:
     restart: always
     volumes:
       - /root/MyPortfolio/DB:/app/DB
+      - /root/MyPortfolio/Files:/app/Files
     ports:
       - "5034:5034"
     environment:
