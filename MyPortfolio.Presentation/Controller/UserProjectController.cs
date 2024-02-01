@@ -24,7 +24,7 @@ namespace MyPortfolio.Presentation.Controller
             : base(mediator) { }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProjectCommand command)
+        public async Task<IActionResult> Create([FromForm] CreateProjectCommand command)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Update([FromBody] UpdateProjectCommand command)
+        public async Task<IActionResult> Update([FromForm] UpdateProjectCommand command)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromBody] long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {

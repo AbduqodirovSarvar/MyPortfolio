@@ -21,7 +21,7 @@ namespace MyPortfolio.Presentation.Controller
             : base(mediator) { }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCertificate([FromBody] CreateCertificateCommand command)
+        public async Task<IActionResult> CreateCertificate([FromForm] CreateCertificateCommand command)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateCertificate([FromBody] UpdateCertificateCommand command)
+        public async Task<IActionResult> UpdateCertificate([FromForm] UpdateCertificateCommand command)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCertificate([FromForm] long id)
+        public async Task<IActionResult> DeleteCertificate(long id)
         {
             try
             {
