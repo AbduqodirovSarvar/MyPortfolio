@@ -11,5 +11,6 @@ namespace MyPortfolio.Application.Abstractions.Interfaces
     {
         Task<Uri?> SaveFileAsync(IFormFile? uri);
         Task RemoveFileAsync(string? url);
+        Stream? GetFileByFileName(string fileName);
     }
 }
