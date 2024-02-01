@@ -18,7 +18,6 @@ namespace MyPortfolio.Presentation.Controller
 {
     [Route("api/users")]
     [ApiController]
-    [Authorize]
     public class AuthController : ApiController
     {
         public AuthController(IMediator mediator)
