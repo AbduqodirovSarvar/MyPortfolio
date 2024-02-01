@@ -7,14 +7,15 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Infrastructure.Services
 {
     public class TokenService : ITokenService
     {
         private readonly JWTConfiguration _configuration;
+
         public TokenService(IOptions<JWTConfiguration> config)
         {
             _configuration = config.Value;
@@ -28,21 +29,28 @@ namespace MyPortfolio.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Name, DateTime.UtcNow.ToString()),
             };
 
-            var jwtCLaims = claims.Concat(jwtClaim);
+            var jwtClaims = claims.Concat(jwtClaim);
 
-            var credentials = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret)),
-                SecurityAlgorithms.HmacSha256
-            );
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret));
 
+            if (key.KeySize < 256)
+            {
+                // Ensure key size is at least 256 bits
+                var largerKeyBytes = new byte[32];
+                var rng = RandomNumberGenerator.Create();
+                rng.GetBytes(largerKeyBytes);
+                key = new SymmetricSecurityKey(largerKeyBytes);
+            }
+
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
                 _configuration.ValidIssuer,
                 _configuration.ValidAudience,
-                jwtCLaims,
+                jwtClaims,
                 expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: credentials
-                );
+            );
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
