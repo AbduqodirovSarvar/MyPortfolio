@@ -17,20 +17,17 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
-        private readonly IMapper _mapper;
         private readonly ILogger<CreateProjectCommandHandler> _logger;
         private readonly IFileService _saveFileService;
         public CreateProjectCommandHandler(
             IAppDbContext appDbContext,
             ICurrentUserService currentUserService,
-            IMapper mapper,
             ILogger<CreateProjectCommandHandler> logger,
             IFileService saveFileService
             )
         {
             _context = appDbContext;
             _currentUser = currentUserService;
-            _mapper = mapper;
             _logger = logger;
             _saveFileService = saveFileService;
         }

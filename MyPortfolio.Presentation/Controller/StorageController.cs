@@ -20,7 +20,22 @@ namespace MyPortfolio.Presentation.Controller
         }
 
         [HttpGet("{fileName}")]
-        public IActionResult Get([FromRoute] string fileName)
+        public IActionResult GetFile([FromRoute] string fileName)
+        {
+            var filePath = _fileService.GetFilePath(fileName);
+
+            if (filePath == null || !System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            string contentType = GetContentType(fileName);
+
+            return PhysicalFile(filePath, contentType, fileName);
+        }
+
+        [HttpGet("{fileName}/download")]
+        public IActionResult DownloadFile([FromRoute] string fileName)
         {
             var fileStream = _fileService.GetFileByFileName(fileName);
 

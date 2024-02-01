@@ -86,5 +86,21 @@ namespace MyPortfolio.Application.Services
                 throw;
             }
         }
+
+        public string GetFilePath(string fileName)
+        {
+            try
+            {
+                string filePath = Path.Combine(_filesDirectory, fileName);
+                string fullPath = Path.GetFullPath(filePath);
+                return fullPath;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions as needed (e.g., log or throw)
+                Console.WriteLine($"Error retrieving file: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
