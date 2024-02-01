@@ -3,17 +3,17 @@ version: '3.9'
 services:
   webapiportfolio:
     build:
-      context: ..
-      dockerfile: Web/MyPortfolio.WebApiDockerfile/Dockerfile
+      context: .
+      dockerfile: MyPortfolio.WebApi/Dockerfile
     container_name: webapiportfolio
     restart: always
     volumes:
-      - /root/DB:/app/DB
+      - /root/MyPortfolio/DB:/app/DB
     ports:
-      - "5000:5000"
+      - "5034:5034"
     environment:
-      - ASPNETCORE_URLS=http://+:5000
-      - ConnectionStrings__SQLiteConnection=Data Source=/app/DB/JoboHubBot.db
+      - ASPNETCORE_URLS=http://+:5034
+      - ConnectionStrings__SQLiteConnection=Data Source=/app/DB/Portfolio.db
       - JWTConfiguration__ValidAudience=MyPortfolio
       - JWTConfiguration__ValidIssuer=localhost
       - JWTConfiguration__Secret=MyPortfolioSecretKeyorWord
@@ -22,8 +22,8 @@ services:
 
   nginx:
     build:
-      context: ..
-      dockerfile: nginx/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: nginx
     ports:
       - "443:443"
@@ -31,7 +31,6 @@ services:
       - /etc/letsencrypt/:/etc/letsencrypt/
     networks:
       - network_for_portfolio
-
 
 networks:
   network_for_portfolio:

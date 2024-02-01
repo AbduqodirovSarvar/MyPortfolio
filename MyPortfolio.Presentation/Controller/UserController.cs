@@ -49,7 +49,7 @@ namespace MyPortfolio.Presentation.Controller
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEducation(long id)
+        public async Task<IActionResult> DeleteUser(long id)
         {
             try
             {

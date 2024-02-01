@@ -5,11 +5,8 @@ using MyPortfolio.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSwaggerGen();
 builder.Services.PresentationServices(builder.Configuration);
 
 builder.Services.AddSwaggerGen(options =>
@@ -49,34 +46,33 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
-// Add CORS configuration
-app.UseCors(options =>
-{
-    options.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
-});
+
 // Configure the HTTP request pipeline.
+app.UseCors(options => 
+            options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseRouting();
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Apply migrations on startup
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var context = services.GetRequiredService<AppDbContext>();
 try
 {
-    // Apply migrations on startup
-    using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<AppDbContext>();
     context.Database.Migrate();
-    Console.WriteLine($"Migrations applying succesfully completed");
+    Console.WriteLine("Migrations applying successfully completed");
 }
 catch (Exception ex)
 {
     Console.WriteLine($"Error applying migrations: {ex.Message}");
 }
+
+app.MapControllers();
 
 app.Run();
