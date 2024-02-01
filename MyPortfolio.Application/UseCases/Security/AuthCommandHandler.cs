@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Exceptions;
 using MyPortfolio.Application.Models.ViewModels;
+using MyPortfolio.Entity.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +39,13 @@ namespace MyPortfolio.Application.UseCases.Security
         public async Task<LoginViewModel> Handle(AuthCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.Users
-                                     .FirstOrDefaultAsync(x => x.Email == request.Email
-                                                          && _hashService.VerifyHash(request.Password, x.Password), cancellationToken)
-                                     ?? throw new LoginException();
+                                     .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken)
+                                     ?? throw new NotFoundException("User not found.");
+
+            if(!_hashService.VerifyHash(request.Password, user.Password))
+            {
+                throw new LoginException();
+            }
 
             var claims = new List<Claim>
                 {
