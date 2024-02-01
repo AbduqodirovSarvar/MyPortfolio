@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(options =>
         Description = "My portfolio website's backend"
     });
 
-    options.AddSecurityDefinition("Beareer", new OpenApiSecurityScheme()
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Scheme = "Bearer",
         BearerFormat = "JWT",
@@ -39,13 +39,13 @@ builder.Services.AddSwaggerGen(options =>
     {
         {
             new OpenApiSecurityScheme()
-            {
-                Reference = new OpenApiReference()
                 {
-                    Id = "Beareer",
-                    Type = ReferenceType.SecurityScheme
-                }
-            },
+                    Reference = new OpenApiReference()
+                    {
+                        Id = "Bearer",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                },
             new List<string>()
         }
 

@@ -47,6 +47,7 @@ namespace MyPortfolio.Infrastructure
                         ValidAudience = configuration["JWTConfiguration:ValidAudience"],
                         ValidIssuer = configuration["JWTConfiguration:ValidIssuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretWord))
+
                     };
                 });
         }

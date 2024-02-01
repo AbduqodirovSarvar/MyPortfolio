@@ -17,7 +17,7 @@ services:
       - ConnectionStrings__SQLiteConnection=Data Source=/app/DB/Portfolio.db
       - JWTConfiguration__ValidAudience=MyPortfolio
       - JWTConfiguration__ValidIssuer=localhost
-      - JWTConfiguration__Secret=MyPortfolioSecretKeyorWord
+      - JWTConfiguration__Secret=MyPortfolioSecretKeyorSecretWord
     networks:
       - network_for_portfolio
 
