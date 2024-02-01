@@ -39,7 +39,7 @@ namespace MyPortfolio.Application.UseCases.Security
         {
             var user = await _context.Users
                                      .FirstOrDefaultAsync(x => x.Email == request.Email
-                                                          && x.Password == _hashService.GetHash(request.Password), cancellationToken)
+                                                          && _hashService.VerifyHash(request.Password, x.Password), cancellationToken)
                                      ?? throw new LoginException();
 
             var claims = new List<Claim>
