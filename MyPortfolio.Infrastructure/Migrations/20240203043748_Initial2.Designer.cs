@@ -11,8 +11,8 @@ using MyPortfolio.Infrastructure.DbContexts;
 namespace MyPortfolio.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240131230827_Initial")]
-    partial class Initial
+    [Migration("20240203043748_Initial2")]
+    partial class Initial2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,8 @@ namespace MyPortfolio.Infrastructure.Migrations
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.CertificateSkill", b =>
                 {
-                    b.Property<long>("SkillId")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("CertificateId")
@@ -75,15 +76,17 @@ namespace MyPortfolio.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("SkillId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("SkillId", "CertificateId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CertificateId");
 
-                    b.ToTable("CertificateSkill");
+                    b.HasIndex("SkillId", "CertificateId")
+                        .IsUnique();
+
+                    b.ToTable("CertificateSkills");
                 });
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.Education", b =>
@@ -173,24 +176,27 @@ namespace MyPortfolio.Infrastructure.Migrations
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.ExperienceSkill", b =>
                 {
-                    b.Property<long>("SkillId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ExperienceId")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("ExperienceId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("SkillId", "ExperienceId");
+                    b.Property<long>("SkillId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ExperienceId");
 
-                    b.ToTable("ExperienceSkill");
+                    b.HasIndex("SkillId", "ExperienceId")
+                        .IsUnique();
+
+                    b.ToTable("ExperienceSkills");
                 });
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.Language", b =>
@@ -260,24 +266,27 @@ namespace MyPortfolio.Infrastructure.Migrations
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.ProjectSkill", b =>
                 {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<long>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("SkillId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProjectId", "SkillId");
+                    b.HasKey("Id");
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("ProjectSkill");
+                    b.HasIndex("ProjectId", "SkillId")
+                        .IsUnique();
+
+                    b.ToTable("ProjectSkills");
                 });
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.Skill", b =>
@@ -403,49 +412,55 @@ namespace MyPortfolio.Infrastructure.Migrations
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.UserLanguage", b =>
                 {
-                    b.Property<long>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("LanguageId")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("LanguageId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("LanguageLevel")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("UserId", "LanguageId");
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
+
+                    b.HasIndex("UserId", "LanguageId")
+                        .IsUnique();
 
                     b.ToTable("UserLanguages");
                 });
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.UserSkill", b =>
                 {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<long>("SkillId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("SkillId", "UserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserSkill");
+                    b.HasIndex("SkillId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserSkills");
                 });
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.Certificate", b =>

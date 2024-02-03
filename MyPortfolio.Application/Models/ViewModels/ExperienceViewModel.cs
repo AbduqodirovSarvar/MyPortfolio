@@ -21,8 +21,7 @@ namespace MyPortfolio.Application.Models.ViewModels
         public DateOnly FromDate { get; set; }
         public DateOnly ToDate { get; set; }
         public long UserId { get; set; }
-        public User? User { get; set; }
         public DateTime CreatedTime { get; set; }
-        public ICollection<ExperienceSkill> Skills { get; set; } = new HashSet<ExperienceSkill>();
+        public ICollection<SkillViewModel> Skills { get; set; } = new HashSet<SkillViewModel>();
     }
 }

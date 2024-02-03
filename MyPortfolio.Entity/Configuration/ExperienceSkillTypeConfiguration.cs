@@ -13,7 +13,8 @@ namespace MyPortfolio.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<ExperienceSkill> builder)
         {
-            builder.HasKey(x => new { x.SkillId, x.ExperienceId });
+            builder.HasKey(x => x.Id);
+            builder.HasIndex(x => new { x.SkillId, x.ExperienceId }).IsUnique();
             builder.HasOne(x => x.Experience).WithMany(x => x.Skills).HasForeignKey(x => x.ExperienceId);
             builder.HasOne(x => x.Skill).WithMany(x => x.Experiences).HasForeignKey(x => x.SkillId);
 

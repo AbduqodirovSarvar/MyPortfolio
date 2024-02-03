@@ -20,10 +20,12 @@ namespace MyPortfolio.Presentation
             services.InfrastructureServices(configuration);
             services.AddControllers().AddApplicationPart(typeof(ApiController).Assembly);
             services.AddControllers()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-            });
+                    .AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+                        //options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                    });
+
             return services;
         }
     }

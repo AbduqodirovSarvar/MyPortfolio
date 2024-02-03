@@ -30,15 +30,22 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillDelete
         {
             try
             {
-                var (user, userSkill) = (await _context.Users
-                                                   .Where(x => x.Id == _currentUser.UserId)
-                                                   .Select(x => Tuple.Create(x, x.Skills.FirstOrDefault(y => y.SkillId == request.Id)))
-                                                   .FirstOrDefaultAsync(cancellationToken))
-                                                   ?? throw new NotFoundException("User not found")
-                                                   ?? throw new NotFoundException("Skill not found for the user");
+                var userTuple = await _context.Users
+                                    .Include(x => x.Skills)
+                                    .Where(x => x.Id == _currentUser.UserId)
+                                    .Select(x => Tuple.Create(x, x.Skills.FirstOrDefault(y => y.SkillId == request.Id)))
+                                    .FirstOrDefaultAsync(cancellationToken)
+                                    ?? throw new NotFoundException("User");
+
+                var (user, userSkill) = userTuple;
+
+                if (user == null || userSkill == null)
+                {
+                    throw new NotFoundException("User or skill not found");
+                }
 
 
-                user.Skills.Remove(userSkill!);
+                user.Skills.Remove(userSkill);
 
                 bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 

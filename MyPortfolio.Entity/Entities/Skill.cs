@@ -12,6 +12,7 @@ namespace MyPortfolio.Entity.Entities
     public sealed record Skill : BaseEntity
     {
         public Skill(string name)
+            :base()
         {
             Name = name;
         }

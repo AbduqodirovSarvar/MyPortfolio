@@ -29,28 +29,17 @@ namespace MyPortfolio.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Name, DateTime.UtcNow.ToString()),
             };
 
-            var jwtClaims = claims.Concat(jwtClaim);
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret));
-
-            if (key.KeySize < 256)
-            {
-                // Ensure key size is at least 256 bits
-                var largerKeyBytes = new byte[32];
-                var rng = RandomNumberGenerator.Create();
-                rng.GetBytes(largerKeyBytes);
-                key = new SymmetricSecurityKey(largerKeyBytes);
-            }
-
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret)),
+                SecurityAlgorithms.HmacSha256
+            );
 
             var token = new JwtSecurityToken(
                 _configuration.ValidIssuer,
                 _configuration.ValidAudience,
-                jwtClaims,
+                claims.Concat(jwtClaim),
                 expires: DateTime.UtcNow.AddDays(1),
-                signingCredentials: credentials
-            );
+                signingCredentials: credentials);
 
             var tokenHandler = new JwtSecurityTokenHandler();
 

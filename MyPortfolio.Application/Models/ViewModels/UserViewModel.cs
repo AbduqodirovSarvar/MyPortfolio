@@ -25,12 +25,12 @@ namespace MyPortfolio.Application.Models.ViewModels
         public string? PhotoUrl { get; set; }
         public string? ResumeUrl { get; private set; }
         public DateTime CreatedTime { get; set; }
-        public ICollection<UserSkill> Skills { get; set; } = new HashSet<UserSkill>();
+        public ICollection<SkillViewModel> Skills { get; set; } = new HashSet<SkillViewModel>();
         public ICollection<UserLanguageViewModel> Languages { get; set; } = new HashSet<UserLanguageViewModel>();
-        public ICollection<Certificate> Certificates { get; set; } = new HashSet<Certificate>();
+        public ICollection<CertificateViewModel> Certificates { get; set; } = new HashSet<CertificateViewModel>();
         public ICollection<ExperienceViewModel> Experiences { get; set; } = new HashSet<ExperienceViewModel>();
-        public ICollection<Project> Projects { get; set; } = new HashSet<Project>();
+        public ICollection<ProjectViewModel> Projects { get; set; } = new HashSet<ProjectViewModel>();
         public ICollection<SocialViewModel> Socials { get; set; } = new HashSet<SocialViewModel>();
-        public ICollection<Education> Educations { get; set; } = new HashSet<Education>();
+        public ICollection<EducationViewModel> Educations { get; set; } = new HashSet<EducationViewModel>();
     }
 }

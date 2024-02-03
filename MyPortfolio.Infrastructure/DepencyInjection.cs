@@ -50,6 +50,7 @@ namespace MyPortfolio.Infrastructure
 
                     };
                 });
+            services.AddAuthorization();
         }
     }
 }

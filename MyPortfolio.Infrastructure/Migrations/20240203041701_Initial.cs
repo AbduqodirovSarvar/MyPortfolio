@@ -193,15 +193,16 @@ namespace MyPortfolio.Infrastructure.Migrations
                 name: "UserLanguages",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     LanguageId = table.Column<long>(type: "INTEGER", nullable: false),
                     UserId = table.Column<long>(type: "INTEGER", nullable: false),
                     LanguageLevel = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLanguages", x => new { x.UserId, x.LanguageId });
+                    table.PrimaryKey("PK_UserLanguages", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserLanguages_Languages_LanguageId",
                         column: x => x.LanguageId,
@@ -217,7 +218,7 @@ namespace MyPortfolio.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserSkill",
+                name: "UserSkills",
                 columns: table => new
                 {
                     SkillId = table.Column<long>(type: "INTEGER", nullable: false),
@@ -227,15 +228,15 @@ namespace MyPortfolio.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserSkill", x => new { x.SkillId, x.UserId });
+                    table.PrimaryKey("PK_UserSkills", x => new { x.SkillId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_UserSkill_Skills_SkillId",
+                        name: "FK_UserSkills_Skills_SkillId",
                         column: x => x.SkillId,
                         principalTable: "Skills",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserSkill_Users_UserId",
+                        name: "FK_UserSkills_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -243,25 +244,26 @@ namespace MyPortfolio.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CertificateSkill",
+                name: "CertificateSkills",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SkillId = table.Column<long>(type: "INTEGER", nullable: false),
                     CertificateId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Id = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CertificateSkill", x => new { x.SkillId, x.CertificateId });
+                    table.PrimaryKey("PK_CertificateSkills", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CertificateSkill_Certificates_CertificateId",
+                        name: "FK_CertificateSkills_Certificates_CertificateId",
                         column: x => x.CertificateId,
                         principalTable: "Certificates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CertificateSkill_Skills_SkillId",
+                        name: "FK_CertificateSkills_Skills_SkillId",
                         column: x => x.SkillId,
                         principalTable: "Skills",
                         principalColumn: "Id",
@@ -269,25 +271,26 @@ namespace MyPortfolio.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExperienceSkill",
+                name: "ExperienceSkills",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SkillId = table.Column<long>(type: "INTEGER", nullable: false),
                     ExperienceId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Id = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExperienceSkill", x => new { x.SkillId, x.ExperienceId });
+                    table.PrimaryKey("PK_ExperienceSkills", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExperienceSkill_Experiences_ExperienceId",
+                        name: "FK_ExperienceSkills_Experiences_ExperienceId",
                         column: x => x.ExperienceId,
                         principalTable: "Experiences",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ExperienceSkill_Skills_SkillId",
+                        name: "FK_ExperienceSkills_Skills_SkillId",
                         column: x => x.SkillId,
                         principalTable: "Skills",
                         principalColumn: "Id",
@@ -295,25 +298,26 @@ namespace MyPortfolio.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectSkill",
+                name: "ProjectSkills",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SkillId = table.Column<long>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Id = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectSkill", x => new { x.ProjectId, x.SkillId });
+                    table.PrimaryKey("PK_ProjectSkills", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectSkill_Projects_ProjectId",
+                        name: "FK_ProjectSkills_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectSkill_Skills_SkillId",
+                        name: "FK_ProjectSkills_Skills_SkillId",
                         column: x => x.SkillId,
                         principalTable: "Skills",
                         principalColumn: "Id",
@@ -338,9 +342,15 @@ namespace MyPortfolio.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CertificateSkill_CertificateId",
-                table: "CertificateSkill",
+                name: "IX_CertificateSkills_CertificateId",
+                table: "CertificateSkills",
                 column: "CertificateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CertificateSkills_SkillId_CertificateId",
+                table: "CertificateSkills",
+                columns: new[] { "SkillId", "CertificateId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Educations_UserId",
@@ -353,9 +363,15 @@ namespace MyPortfolio.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExperienceSkill_ExperienceId",
-                table: "ExperienceSkill",
+                name: "IX_ExperienceSkills_ExperienceId",
+                table: "ExperienceSkills",
                 column: "ExperienceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExperienceSkills_SkillId_ExperienceId",
+                table: "ExperienceSkills",
+                columns: new[] { "SkillId", "ExperienceId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Languages_Name",
@@ -380,8 +396,14 @@ namespace MyPortfolio.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectSkill_SkillId",
-                table: "ProjectSkill",
+                name: "IX_ProjectSkills_ProjectId_SkillId",
+                table: "ProjectSkills",
+                columns: new[] { "ProjectId", "SkillId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectSkills_SkillId",
+                table: "ProjectSkills",
                 column: "SkillId");
 
             migrationBuilder.CreateIndex(
@@ -405,6 +427,12 @@ namespace MyPortfolio.Infrastructure.Migrations
                 name: "IX_UserLanguages_LanguageId",
                 table: "UserLanguages",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserLanguages_UserId_LanguageId",
+                table: "UserLanguages",
+                columns: new[] { "UserId", "LanguageId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
@@ -431,8 +459,8 @@ namespace MyPortfolio.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSkill_UserId",
-                table: "UserSkill",
+                name: "IX_UserSkills_UserId",
+                table: "UserSkills",
                 column: "UserId");
         }
 
@@ -440,16 +468,16 @@ namespace MyPortfolio.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CertificateSkill");
+                name: "CertificateSkills");
 
             migrationBuilder.DropTable(
                 name: "Educations");
 
             migrationBuilder.DropTable(
-                name: "ExperienceSkill");
+                name: "ExperienceSkills");
 
             migrationBuilder.DropTable(
-                name: "ProjectSkill");
+                name: "ProjectSkills");
 
             migrationBuilder.DropTable(
                 name: "Socials");
@@ -458,7 +486,7 @@ namespace MyPortfolio.Infrastructure.Migrations
                 name: "UserLanguages");
 
             migrationBuilder.DropTable(
-                name: "UserSkill");
+                name: "UserSkills");
 
             migrationBuilder.DropTable(
                 name: "Certificates");

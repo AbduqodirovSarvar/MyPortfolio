@@ -20,12 +20,16 @@ namespace MyPortfolio.Infrastructure.DbContexts
         public DbSet<User> Users { get; set; }
         public DbSet<UserLanguage> UserLanguages { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<CertificateSkill> CertificateSkills { get; set; }
         public DbSet<Education> Educations { get; set; }
         public DbSet<Experience> Experiences { get; set; }
+        public DbSet<ExperienceSkill> ExperienceSkills {  get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectSkill> ProjectSkills { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Social> Socials { get; set; }
+        public DbSet<UserSkill> UserSkills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
