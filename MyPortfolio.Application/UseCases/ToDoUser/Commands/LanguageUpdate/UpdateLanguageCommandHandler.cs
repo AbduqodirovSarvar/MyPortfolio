@@ -16,22 +16,25 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageUpdate
 {
-    public sealed class UpdateLanguageCommandHandler : IRequestHandler<UpdateLanguageCommand, UserLanguage>
+    public sealed class UpdateLanguageCommandHandler : IRequestHandler<UpdateLanguageCommand, UserLanguageViewModel>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly ILogger<UpdateLanguageCommandHandler> _logger;
-
+        private readonly IMapper _mapper;
         public UpdateLanguageCommandHandler(
             IAppDbContext context,
             ICurrentUserService currentUser,
-            ILogger<UpdateLanguageCommandHandler> logger)
+            ILogger<UpdateLanguageCommandHandler> logger,
+            IMapper mapper
+            )
         {
             _context = context;
             _currentUser = currentUser;
             _logger = logger;
+            _mapper = mapper;
         }
-        public async Task<UserLanguage> Handle(UpdateLanguageCommand request, CancellationToken cancellationToken)
+        public async Task<UserLanguageViewModel> Handle(UpdateLanguageCommand request, CancellationToken cancellationToken)
         {
             var userLanguage = await _context.UserLanguages.Include(x => x.User)
                                              .FirstOrDefaultAsync(x => x.LanguageId == request.LanguageId && x.UserId == _currentUser.UserId, cancellationToken);
@@ -43,10 +46,13 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageUpdate
                                                                                                     request.LanguageLevel != null ? (LanguageLevel)Enum.Parse(typeof(LanguageLevel), request.LanguageLevel)
                                                                                                                                 : userLanguage.LanguageLevel);
 
-            _logger.LogInformation("Language (ID: {Language.Id}) updated by user (ID: {_currentUser.UserId})", userLanguage.LanguageId, _currentUser.UserId);
-
             userLanguage.Change(changedUserLanguage);
-            return userLanguage;
+
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Language (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                       : "Language (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
+
+            _logger.LogInformation(resultMessage, userLanguage.Id, _currentUser.UserId);
+            return _mapper.Map<UserLanguageViewModel>(userLanguage);
         }
     }
 }

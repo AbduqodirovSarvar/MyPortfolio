@@ -16,12 +16,10 @@ namespace MyPortfolio.Application.Mappings
             CreateMap<User, UserViewModel>()
                 .ForMember(x => x.Gender, y => y.MapFrom(z => z.Gender.ToString()))
                 .ForMember(x => x.Skills, y => y.MapFrom(z => z.Skills.Select(skill => skill.Skill)))
-                .ForMember(x => x.Languages, y => y.MapFrom(z => z.Languages.Select(lang => lang.Language)))
                 .ReverseMap();
             CreateMap<UserLanguage, UserLanguageViewModel>()
                 .ForMember(x => x.LanguageLevel, y => y.MapFrom(z => z.LanguageLevel.ToString()))
                 .ReverseMap();
-
             CreateMap<Social, SocialViewModel>()
                 .ForMember(x => x.SocialNetwork, y => y.MapFrom(z => z.SocialNetwork.ToString()))
                 .ReverseMap();

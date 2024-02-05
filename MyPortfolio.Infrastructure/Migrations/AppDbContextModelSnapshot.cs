@@ -437,22 +437,25 @@ namespace MyPortfolio.Infrastructure.Migrations
 
             modelBuilder.Entity("MyPortfolio.Entity.Entities.UserSkill", b =>
                 {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<long>("SkillId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("TEXT");
+                    b.HasKey("Id");
 
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.HasIndex("SkillId");
 
-                    b.HasKey("SkillId", "UserId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "SkillId")
+                        .IsUnique();
 
                     b.ToTable("UserSkills");
                 });

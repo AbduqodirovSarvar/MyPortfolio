@@ -52,7 +52,10 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 
                 await _context.Experiences.AddAsync(experience, cancellationToken);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Experience (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                       : "Experience (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
+
+                _logger.LogInformation(resultMessage, experience.Id, _currentUser.UserId);
             }
             catch (Exception ex)
             {

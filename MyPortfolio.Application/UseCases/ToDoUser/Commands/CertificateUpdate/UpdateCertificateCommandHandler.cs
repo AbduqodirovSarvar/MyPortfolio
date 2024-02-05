@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
+using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
 using System;
@@ -12,23 +14,26 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
 {
-    public sealed class UpdateCertificateCommandHandler : IRequestHandler<UpdateCertificateCommand, Certificate>
+    public sealed class UpdateCertificateCommandHandler : IRequestHandler<UpdateCertificateCommand, CertificateViewModel>
     {
         private readonly IAppDbContext _context;
         private readonly ILogger<UpdateCertificateCommandHandler> _logger;
         private readonly ICurrentUserService _currentUser;
+        private readonly IMapper _mapper;
 
         public UpdateCertificateCommandHandler(
             IAppDbContext context,
             ILogger<UpdateCertificateCommandHandler> logger,
-            ICurrentUserService currentUserService
+            ICurrentUserService currentUserService,
+            IMapper mapper
             )
         {
             _context = context;
             _logger = logger;
             _currentUser = currentUserService;
+            _mapper = mapper;
         }
-        public async Task<Certificate> Handle(UpdateCertificateCommand request, CancellationToken cancellationToken)
+        public async Task<CertificateViewModel> Handle(UpdateCertificateCommand request, CancellationToken cancellationToken)
         {
             var certificate = await _context.Certificates.Include(x => x.User)
                                             .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == _currentUser.UserId, cancellationToken);
@@ -42,11 +47,14 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
                                                                                                       request.Issued ?? certificate.Issued,
                                                                                                       certificate.UserId);
 
-            _logger.LogInformation("Certificate (ID: {certificate.Id}) updated by user (ID: {_currentUser.UserId})", certificate.Id, _currentUser.UserId);
-
             certificate.Change(changedCertificate);
 
-            return certificate;
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Certificate (ID: {certificate.Id}) updated by user (ID: {_currentUser.UserId})"
+                                       : "Certificate (ID: {certificate.Id}) couldn't update by user (ID: {_currentUser.UserId})";
+
+            _logger.LogInformation(resultMessage, certificate.Id, _currentUser.UserId);
+
+            return _mapper.Map<CertificateViewModel>(certificate);
         }
     }
 }

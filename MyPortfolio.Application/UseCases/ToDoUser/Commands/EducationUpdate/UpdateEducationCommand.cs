@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Behaviour;
 using MyPortfolio.Entity.Entities;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate
 {
-    public sealed class UpdateEducationCommand : IRequest<Education>
+    public sealed class UpdateEducationCommand : IRequest<EducationViewModel>
     {
         [Required]
         public long Id { get; set; }

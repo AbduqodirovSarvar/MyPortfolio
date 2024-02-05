@@ -31,7 +31,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectDelete
         {
             var project = await _context.Projects
                                         .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == _currentUser.UserId, cancellationToken)
-                                        ?? throw new NotFoundException("Language not found!");
+                                        ?? throw new NotFoundException("Project not found!");
 
             _context.Projects.Remove(project);
 

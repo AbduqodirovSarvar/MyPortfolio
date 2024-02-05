@@ -14,7 +14,7 @@ namespace MyPortfolio.Entity.Configuration
         public void Configure(EntityTypeBuilder<Social> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Url).IsUnique();
+            builder.HasIndex(x => x.Url).IsUnique(true);
         }
     }
 }

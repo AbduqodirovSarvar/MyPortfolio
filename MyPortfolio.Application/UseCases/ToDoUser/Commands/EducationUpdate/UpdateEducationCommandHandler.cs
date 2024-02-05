@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
@@ -14,22 +15,26 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate
 {
-    public sealed class UpdateEducationCommandHandler : IRequestHandler<UpdateEducationCommand, Education>
+    public sealed class UpdateEducationCommandHandler : IRequestHandler<UpdateEducationCommand, EducationViewModel>
     {
         private readonly IAppDbContext _context;
         private readonly ILogger<UpdateEducationCommandHandler> _logger;
         private readonly ICurrentUserService _currentUser;
+        private readonly IMapper _mapper;
         public UpdateEducationCommandHandler(
             IAppDbContext context, 
             ILogger<UpdateEducationCommandHandler> logger, 
-            ICurrentUserService currentUser)
+            ICurrentUserService currentUser,
+            IMapper mapper
+            )
         {
             _context = context;
             _logger = logger;
             _currentUser = currentUser;
+            _mapper = mapper;
         }
 
-        public async Task<Education> Handle(UpdateEducationCommand request, CancellationToken cancellationToken)
+        public async Task<EducationViewModel> Handle(UpdateEducationCommand request, CancellationToken cancellationToken)
         {
             var education = await _context.Educations.Include(x => x.User)
                                           .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == _currentUser.UserId, cancellationToken);
@@ -47,7 +52,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate
             _logger.LogInformation("Education (ID: {education.Id}) updated by user (ID: {_currentUser.UserId})", education.Id, _currentUser.UserId);
 
             education.Change(changedEducation);
-            return education;
+            return _mapper.Map<EducationViewModel>(education);
         }
     }
 }

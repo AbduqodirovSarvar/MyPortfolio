@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectUpdate
 {
-    public sealed class UpdateProjectCommand : IRequest<Project>
+    public sealed class UpdateProjectCommand : IRequest<ProjectViewModel>
     {
         [Required]
         public long Id { get; set; }

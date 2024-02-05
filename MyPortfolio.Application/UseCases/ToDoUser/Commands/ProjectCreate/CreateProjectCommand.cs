@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
 {
-    public sealed class CreateProjectCommand : IRequest<Project>
+    public sealed class CreateProjectCommand : IRequest<ProjectViewModel>
     {
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;

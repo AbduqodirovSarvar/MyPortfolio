@@ -14,7 +14,7 @@ namespace MyPortfolio.Entity.Configuration
         public void Configure(EntityTypeBuilder<UserLanguage> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasIndex(x => new {x.UserId, x.LanguageId}).IsUnique();
+            builder.HasIndex(x => new {x.UserId, x.LanguageId}).IsUnique(true);
             builder.HasOne(x => x.User).WithMany(x => x.Languages).HasForeignKey(x => x.UserId);
             builder.HasOne(x => x.Language).WithMany(x => x.Users).HasForeignKey(x => x.LanguageId);
         }

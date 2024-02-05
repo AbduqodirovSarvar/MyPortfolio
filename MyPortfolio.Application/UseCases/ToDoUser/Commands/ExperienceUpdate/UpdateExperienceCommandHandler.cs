@@ -51,7 +51,10 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceUpdate
                                                                                                   request.ToDate ?? experience.ToDate,
                                                                                                   experience.UserId);
 
-            _logger.LogInformation("Experience (ID: {experience.Id}) updated by user (ID: {_currentUser.UserId})", experience.Id, _currentUser.UserId);
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Experience (ID: {Id}) updated by user (ID: {_currentUser.UserId})"
+                                       : "Experience (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
+
+            _logger.LogInformation(resultMessage, experience.Id, _currentUser.UserId);
 
             experience.Change(changedExperience);
             return _mapper.Map<ExperienceViewModel>(experience);

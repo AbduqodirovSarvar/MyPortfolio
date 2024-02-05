@@ -48,7 +48,11 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
 
                 userlanguage = (await _context.UserLanguages.AddAsync(userlanguage, cancellationToken)).Entity;
 
-                await _context.SaveChangesAsync(cancellationToken);
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Language (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                       : "Language (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
+
+                _logger.LogInformation(resultMessage, language.Id, _currentUser.UserId);
+
                 return _mapper.Map<UserLanguageViewModel>(userlanguage);
             }
             catch (Exception ex)
@@ -56,7 +60,6 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageCreate
                 _logger.LogInformation("Error: {ex}", ex.Message);
                 throw new Exception(ex.Message);
             }
-            
         }
     }
 }

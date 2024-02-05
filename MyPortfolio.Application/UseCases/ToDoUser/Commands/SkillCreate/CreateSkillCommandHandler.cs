@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
+using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
 using System;
@@ -14,98 +16,73 @@ using System.Xml.Linq;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 {
-    public sealed class CreateSkillCommandHandler : IRequestHandler<CreateSkillCommand, List<UserSkill>>
+    public sealed class CreateSkillCommandHandler : IRequestHandler<CreateSkillCommand, List<SkillViewModel>>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly ILogger<CreateSkillCommandHandler> _logger;
+        private readonly IMapper _mapper;
         public CreateSkillCommandHandler(
             IAppDbContext context,
             ICurrentUserService currentUser,
-            ILogger<CreateSkillCommandHandler> logger)
+            ILogger<CreateSkillCommandHandler> logger,
+            IMapper mapper
+            )
         {
             _context = context;
             _currentUser = currentUser;
             _logger = logger;
+            _mapper = mapper;
         }
 
-        public async Task<List<UserSkill>> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
+        public async Task<List<SkillViewModel>> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
         {
-
             var user = await _context.Users
-                                .Include(x => x.Skills).ThenInclude(x => x.Skill)
-                                .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken)
-                                ?? throw new NotFoundException("User not found");
+                .Include(x => x.Skills).ThenInclude(x => x.Skill)
+                .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken)
+                ?? throw new NotFoundException("User not found");
 
             var (existedSkills, newSkills) = (
                                             from skillName in request.Names
-                                            join skill in _context.Skills on skillName equals skill.Name into matchingSkills
-                                            from matchedSkill in matchingSkills.DefaultIfEmpty()
-                                            select (matchedSkill, skillName)
-                                        )
-                                        .Aggregate(
-                                            (existed: new List<Skill>(), newSkills: new List<string>()),
-                                            (acc, tuple) =>
-                                            {
-                                                if (tuple.matchedSkill != null)
+                                            join skill in _context.Skills on skillName equals skill.Name into skillGroup
+                                            from skill in skillGroup.DefaultIfEmpty()
+                                            select (Skill: skill, SkillName: skillName)
+                                            )
+                                            .Aggregate(
+                                                (Existed: new List<Skill>(), New: new List<Skill>()),
+                                                (result, tuple) =>
                                                 {
-                                                    acc.existed.Add(tuple.matchedSkill);
-                                                }
-                                                else
-                                                {
-                                                    acc.newSkills.Add(tuple.skillName);
-                                                }
-                                                return acc;
-                                            },
-                                            result => (result.existed, result.newSkills.Select(name => new Skill(name)).ToList())
-                                        );
-
+                                                    if (tuple.Skill == null)
+                                                    {
+                                                        result.New.Add(new Skill(tuple.SkillName));
+                                                    }
+                                                    else
+                                                    {
+                                                        result.Existed.Add(tuple.Skill);
+                                                    }
+                                                    return result;
+                                                },
+                                                result => (result.Existed, result.New)
+                                            );
 
             await _context.Skills.AddRangeAsync(newSkills, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
             existedSkills.AddRange(newSkills);
-            var userSkillList = existedSkills
+
+            var userSkillCreateList = existedSkills
                 .Select(skill => new UserSkill(skill, user))
                 .ToList();
 
-            await _context.UserSkills.AddRangeAsync(userSkillList, cancellationToken);
+            await _context.UserSkills.AddRangeAsync(userSkillCreateList, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            /*var user = await _context.Users.Include(x => x.Skills).ThenInclude(x => x.Skill)
-                                           .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken)
-                                           ?? throw new NotFoundException("User not found");
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
+                ? $"Skills added by user (ID: {_currentUser.UserId})"
+                : $"Skills couldn't be added by user (ID: {_currentUser.UserId})";
 
+            _logger.LogInformation(resultMessage, _currentUser.UserId);
 
-            *//*var lists = (from name in request.Names
-                         let skill = _context.Skills.FirstOrDefault(x => x.Name == name) ?? _context.Skills.Add(new Skill(name)).Entity
-                         select new UserSkill(skill.Id, user.Id)).ToList();*/
-
-            /*await _context.UserSkills.AddRangeAsync(from name in request.Names
-                                                    let skill = _context.Skills.FirstOrDefault(x => x.Name == name) ?? _context.Skills.Add(new Skill(name)).Entity
-                                                    select new UserSkill(skill, user), cancellationToken);*//*
-
-            var skills = from name in request.Names
-                         let skill = _context.Skills.FirstOrDefault(x => x.Name == name)
-                         ?? _context.Skills.Add(new Skill(name)).Entity
-                         select skill;
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            var userSkillList = from skill in _context.Skills where skills.Any(x => x.Name == skill.Name) select new UserSkill(skill, user);
-
-            await _context.UserSkills.AddRangeAsync(userSkillList, cancellationToken);
-
-            await _context.SaveChangesAsync(cancellationToken);*/
-            /*
-                        foreach(var userSkill in userSkillList)
-                        {
-                            await _context.UserSkills.AddAsync(userSkill, cancellationToken);
-                            await _context.SaveChangesAsync(cancellationToken);
-                        }*/
-
-            _logger.LogInformation("User's skills updated by user identifier Id: {userId}", _currentUser.UserId);
-
-            return user.Skills.ToList();
+            return _mapper.Map<List<SkillViewModel>>(user.Skills.Select(x => x.Skill).ToList());
         }
+
     }
 }

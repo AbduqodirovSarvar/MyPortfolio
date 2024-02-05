@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageUpdate
 {
-    public sealed class UpdateLanguageCommand : IRequest<UserLanguage>
+    public sealed class UpdateLanguageCommand : IRequest<UserLanguageViewModel>
     {
         [Required]
         public long LanguageId { get; set; }

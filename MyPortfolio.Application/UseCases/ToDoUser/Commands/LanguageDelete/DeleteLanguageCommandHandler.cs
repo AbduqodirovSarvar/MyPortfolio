@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
@@ -17,15 +18,18 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageDelete
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly ILogger<DeleteExperienceCommandHandler> _logger;
+        private readonly IMapper _mapper;
         public DeleteLanguageCommandHandler(
             IAppDbContext context,
             ICurrentUserService currentUserService,
-            ILogger<DeleteExperienceCommandHandler> logger
+            ILogger<DeleteExperienceCommandHandler> logger,
+            IMapper mapper
             )
         {
             _context = context;
             _currentUser = currentUserService;
             _logger = logger;
+            _mapper = mapper;
         }
         public async Task<bool> Handle(DeleteLanguageCommand request, CancellationToken cancellationToken)
         {

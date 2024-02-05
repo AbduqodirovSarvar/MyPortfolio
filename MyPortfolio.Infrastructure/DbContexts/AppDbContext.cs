@@ -50,5 +50,10 @@ namespace MyPortfolio.Infrastructure.DbContexts
 
             modelBuilder.ApplyAllConfigurations();
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
     }
 }

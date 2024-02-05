@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Behaviour;
 using MyPortfolio.Entity.Entities;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
 {
-    public sealed class UpdateCertificateCommand : IRequest<Certificate>
+    public sealed class UpdateCertificateCommand : IRequest<CertificateViewModel>
     {
         [Required]
         public long Id { get; set; }
