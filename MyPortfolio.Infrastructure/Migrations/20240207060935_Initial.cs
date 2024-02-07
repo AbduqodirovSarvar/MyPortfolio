@@ -221,14 +221,15 @@ namespace MyPortfolio.Infrastructure.Migrations
                 name: "UserSkills",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SkillId = table.Column<long>(type: "INTEGER", nullable: false),
                     UserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Id = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserSkills", x => new { x.SkillId, x.UserId });
+                    table.PrimaryKey("PK_UserSkills", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserSkills_Skills_SkillId",
                         column: x => x.SkillId,
@@ -459,9 +460,15 @@ namespace MyPortfolio.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSkills_UserId",
+                name: "IX_UserSkills_SkillId",
                 table: "UserSkills",
-                column: "UserId");
+                column: "SkillId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSkills_UserId_SkillId",
+                table: "UserSkills",
+                columns: new[] { "UserId", "SkillId" },
+                unique: true);
         }
 
         /// <inheritdoc />

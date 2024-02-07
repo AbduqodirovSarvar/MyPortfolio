@@ -11,8 +11,8 @@ using MyPortfolio.Infrastructure.DbContexts;
 namespace MyPortfolio.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240203043748_Initial2")]
-    partial class Initial2
+    [Migration("20240207060935_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -455,9 +455,9 @@ namespace MyPortfolio.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("SkillId");
 
-                    b.HasIndex("SkillId", "UserId")
+                    b.HasIndex("UserId", "SkillId")
                         .IsUnique();
 
                     b.ToTable("UserSkills");
