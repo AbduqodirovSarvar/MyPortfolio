@@ -42,23 +42,26 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
                 .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
-            var (existedSkills, newSkills) = (
-                                            from skillName in request.Names
-                                            join skill in _context.Skills on skillName equals skill.Name into skillGroup
-                                            from skill in skillGroup.DefaultIfEmpty()
-                                            select (Skill: skill, SkillName: skillName)
-                                            )
+            var (existedSkills, newSkills) = request.Names
+                                            .Select(skillName => (
+                                                Skill: _context.Skills.FirstOrDefault(s => s.Name == skillName),
+                                                SkillName: skillName,
+                                                ExistingUserSkill: user.Skills.Select(x => x.Skill).FirstOrDefault(s => s?.Name == skillName)
+                                            ))
                                             .Aggregate(
                                                 (Existed: new List<Skill>(), New: new List<Skill>()),
                                                 (result, tuple) =>
                                                 {
                                                     if (tuple.Skill == null)
                                                     {
-                                                        result.New.Add(new Skill(tuple.SkillName));
-                                                    }
-                                                    else
-                                                    {
-                                                        result.Existed.Add(tuple.Skill);
+                                                        if (tuple.ExistingUserSkill == null)
+                                                        {
+                                                            result.New.Add(new Skill(tuple.SkillName));
+                                                        }
+                                                        else
+                                                        {
+                                                            result.Existed.Add(tuple.ExistingUserSkill);
+                                                        }
                                                     }
                                                     return result;
                                                 },
