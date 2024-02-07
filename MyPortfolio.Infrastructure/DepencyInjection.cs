@@ -8,15 +8,11 @@ using MyPortfolio.Infrastructure.DbContexts;
 using MyPortfolio.Infrastructure.Models;
 using MyPortfolio.Infrastructure.Services;
 using SQLitePCL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Infrastructure
 {
-    public  static class DepencyInjection
+    public static class DepencyInjection
     {
         public static void InfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {

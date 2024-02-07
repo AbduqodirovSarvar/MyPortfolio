@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyPortfolio.Application.Abstractions.Interfaces;
-using System;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.Services
 {

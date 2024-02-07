@@ -1,13 +1,7 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Behaviour;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -21,7 +15,7 @@ namespace MyPortfolio.Entity.Entities
             DateOnly toDate,
             string educationWebSiteUrl,
             long userId
-            ):base() 
+            ) : base()
         {
             Name = name;
             Description = description;
@@ -39,7 +33,7 @@ namespace MyPortfolio.Entity.Entities
         [UriValidation]
         public string EducationWebSiteUrl { get; private set; }
         [Required]
-        public long UserId {  get; private set; }
+        public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
 

@@ -1,9 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.Application.Abstractions.Interfaces;
-using System.IO;
-using System.Net;
 using System.Net.Mime;
 
 namespace MyPortfolio.Presentation.Controller

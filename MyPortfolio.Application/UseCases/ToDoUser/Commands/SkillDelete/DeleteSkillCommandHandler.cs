@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillDelete
 {
@@ -46,7 +41,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillDelete
 
                 bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
-                string resultMessage = result 
+                string resultMessage = result
                                           ? "Skill (ID: {SkillId}) removed by user (ID: {UserId})"
                                           : "Skill (ID: {SkillId}) couldn't remove by user (ID: {UserId})";
 

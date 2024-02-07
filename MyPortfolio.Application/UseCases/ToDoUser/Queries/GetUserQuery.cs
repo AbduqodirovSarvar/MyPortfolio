@@ -1,18 +1,13 @@
 ﻿using MediatR;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Behaviour;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
 {
     public class GetUserQuery : IRequest<UserViewModel>
     {
-        public GetUserQuery(long id) 
-        { 
+        public GetUserQuery(long id)
+        {
             Id = id;
         }
         public GetUserQuery(string email)

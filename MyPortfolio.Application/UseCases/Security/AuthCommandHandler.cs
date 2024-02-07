@@ -6,12 +6,7 @@ using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Exceptions;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.Security
 {
@@ -24,7 +19,7 @@ namespace MyPortfolio.Application.UseCases.Security
         private readonly IMapper _mapper;
         public AuthCommandHandler(
             IAppDbContext context,
-            ITokenService tokenService, 
+            ITokenService tokenService,
             IHashService hashService,
             ILogger<AuthCommandHandler> logger,
             IMapper mapper)
@@ -42,7 +37,7 @@ namespace MyPortfolio.Application.UseCases.Security
                                      .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken)
                                      ?? throw new NotFoundException("User not found.");
 
-            if(!_hashService.VerifyHash(request.Password, user.Password))
+            if (!_hashService.VerifyHash(request.Password, user.Password))
             {
                 throw new LoginException();
             }

@@ -1,12 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using MyPortfolio.Application.Models.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
 {
@@ -24,7 +19,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
         public string? Profession { get; set; } = null;
         public string? AboutMe { get; set; } = null;
         public string? PhoneNumber { get; set; } = null;
-        public IFormFile? Photo { get; set; } =  null;
+        public IFormFile? Photo { get; set; } = null;
         public IFormFile? Resume { get; set; } = null;
     }
 }

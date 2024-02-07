@@ -1,17 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate;
-using MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete;
-using MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceUpdate;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectDelete;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectUpdate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Presentation.Controller
 {

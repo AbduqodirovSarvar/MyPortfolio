@@ -1,17 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate;
-using MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete;
-using MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationDelete;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Presentation.Controller
 {

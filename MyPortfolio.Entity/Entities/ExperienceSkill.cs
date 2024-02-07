@@ -1,10 +1,5 @@
 ﻿using MyPortfolio.Entity.Abstraction;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -33,7 +28,7 @@ namespace MyPortfolio.Entity.Entities
 
         public long SkillId { get; private set; }
         [ForeignKey(nameof(SkillId))]
-        public Skill? Skill { get; set; } 
+        public Skill? Skill { get; set; }
         public long ExperienceId { get; private set; }
         [ForeignKey(nameof(ExperienceId))]
         public Experience? Experience { get; set; }

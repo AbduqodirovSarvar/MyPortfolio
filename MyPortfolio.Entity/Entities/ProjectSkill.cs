@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MyPortfolio.Entity.Abstraction;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyPortfolio.Entity.Abstraction;
 
 namespace MyPortfolio.Entity.Entities
 {

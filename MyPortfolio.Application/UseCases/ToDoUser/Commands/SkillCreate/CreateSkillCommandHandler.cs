@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 {

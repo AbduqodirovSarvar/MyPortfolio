@@ -7,11 +7,6 @@ using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Enums;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialUpdate
 {
@@ -43,7 +38,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialUpdate
 
             social.Change(changedSocial);
 
-            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
                                       ? "Social network (ID: {socialId}) updated by user (ID: {UserId})"
                                       : "Social network (ID: {socialID}) couldn't update by user (ID: {UserId})";
 

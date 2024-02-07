@@ -1,13 +1,7 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Behaviour;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -20,7 +14,7 @@ namespace MyPortfolio.Entity.Entities
             long userId,
             string urlToCode,
             string urlToSite
-            ) :base() 
+            ) : base()
         {
             Name = name;
             Description = description;
@@ -40,7 +34,7 @@ namespace MyPortfolio.Entity.Entities
         [UriValidation]
         public string UrlToCode { get; private set; }
         [UriValidation]
-        public string UrlToSite {  get; private set; }
+        public string UrlToSite { get; private set; }
         public ICollection<ProjectSkill> Skills { get; set; } = new HashSet<ProjectSkill>();
         public override Project Change(object obj)
         {

@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.Mappings
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             CreateMap<User, UserViewModel>()
                 .ForMember(x => x.Gender, y => y.MapFrom(z => z.Gender.ToString()))
@@ -39,7 +34,7 @@ namespace MyPortfolio.Application.Mappings
                 .ReverseMap();
             CreateMap<Language, LanguageViewModel>()
                 .ReverseMap();
-                
+
         }
     }
 }

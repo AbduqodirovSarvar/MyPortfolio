@@ -1,5 +1,4 @@
-﻿using MyPortfolio.Entity.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyPortfolio.Entity.Abstraction

@@ -2,13 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
-using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectDelete
 {

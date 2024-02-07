@@ -5,11 +5,6 @@ using MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.UserDelete;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate;
 using MyPortfolio.Application.UseCases.ToDoUser.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Presentation.Controller
 {

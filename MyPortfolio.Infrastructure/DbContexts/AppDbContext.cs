@@ -3,12 +3,6 @@ using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Entity.Configuration;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Infrastructure.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Infrastructure.DbContexts
 {
@@ -23,7 +17,7 @@ namespace MyPortfolio.Infrastructure.DbContexts
         public DbSet<CertificateSkill> CertificateSkills { get; set; }
         public DbSet<Education> Educations { get; set; }
         public DbSet<Experience> Experiences { get; set; }
-        public DbSet<ExperienceSkill> ExperienceSkills {  get; set; }
+        public DbSet<ExperienceSkill> ExperienceSkills { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectSkill> ProjectSkills { get; set; }

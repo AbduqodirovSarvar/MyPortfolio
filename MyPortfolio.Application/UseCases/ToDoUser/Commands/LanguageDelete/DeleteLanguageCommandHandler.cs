@@ -5,11 +5,6 @@ using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.LanguageDelete
 {

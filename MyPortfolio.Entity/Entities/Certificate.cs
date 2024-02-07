@@ -1,12 +1,7 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Behaviour;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -20,7 +15,7 @@ namespace MyPortfolio.Entity.Entities
             DateOnly issued,
             long userId
             )
-            :base()
+            : base()
         {
             Name = name;
             Description = description;
@@ -34,8 +29,8 @@ namespace MyPortfolio.Entity.Entities
         [Required]
         [UriValidation]
         public string CertificateUrl { get; private set; }
-        public string Credential {  get; private set; }
-        public DateOnly Issued {  get; private set; }
+        public string Credential { get; private set; }
+        public DateOnly Issued { get; private set; }
         [Required]
         public long UserId { get; private set; }
         [ForeignKey(nameof(UserId))]

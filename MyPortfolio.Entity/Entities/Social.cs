@@ -1,11 +1,8 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Behaviour;
 using MyPortfolio.Entity.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Net;
-using System.Xml.Linq;
 
 namespace MyPortfolio.Entity.Entities
 {

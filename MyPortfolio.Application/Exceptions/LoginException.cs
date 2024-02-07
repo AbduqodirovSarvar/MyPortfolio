@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyPortfolio.Application.Exceptions
+﻿namespace MyPortfolio.Application.Exceptions
 {
     public sealed class LoginException : Exception
     {

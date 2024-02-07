@@ -1,14 +1,7 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -23,7 +16,7 @@ namespace MyPortfolio.Entity.Entities
             DateOnly fromDate,
             DateOnly toDate,
             long userId
-            ): base()
+            ) : base()
         {
             CompanyName = companyName;
             Description = description;

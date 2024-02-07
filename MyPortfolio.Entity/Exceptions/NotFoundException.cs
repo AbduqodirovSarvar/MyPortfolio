@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyPortfolio.Entity.Exceptions
+﻿namespace MyPortfolio.Entity.Exceptions
 {
     public sealed class NotFoundException : Exception
     {
-        public NotFoundException() 
+        public NotFoundException()
             : base("The requested entity was not found.")
         {
         }
@@ -18,7 +12,7 @@ namespace MyPortfolio.Entity.Exceptions
         {
         }
 
-        public NotFoundException(string message, Exception innerException) 
+        public NotFoundException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

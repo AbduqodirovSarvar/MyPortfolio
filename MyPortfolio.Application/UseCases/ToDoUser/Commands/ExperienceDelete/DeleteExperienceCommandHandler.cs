@@ -2,13 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
-using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
 {
@@ -36,7 +30,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
             _context.Experiences.Remove(experience);
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
-            string resultMessage = result 
+            string resultMessage = result
                                        ? "Experience (ID: {Id}) removed by user (ID: {UserId})"
                                        : "Experience (ID: {Id}) couldn't remove by user (ID: {UserId})";
 

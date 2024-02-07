@@ -1,14 +1,7 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Behaviour;
 using MyPortfolio.Entity.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace MyPortfolio.Entity.Entities
 {
@@ -27,7 +20,7 @@ namespace MyPortfolio.Entity.Entities
             string phoneNumber,
             string? photoUrl,
             string resumeUrl
-            ) :base() 
+            ) : base()
         {
             FirstName = firstName;
             LastName = lastName;
@@ -45,7 +38,7 @@ namespace MyPortfolio.Entity.Entities
         [Required]
         public string FirstName { get; private set; }
         [Required]
-        public string LastName { get; private set;}
+        public string LastName { get; private set; }
         [Required]
         [MailValidation]
         public string Email { get; private set; }

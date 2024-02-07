@@ -4,11 +4,6 @@ using MyPortfolio.Application;
 using MyPortfolio.Application.Services;
 using MyPortfolio.Infrastructure;
 using MyPortfolio.Presentation.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Presentation
 {

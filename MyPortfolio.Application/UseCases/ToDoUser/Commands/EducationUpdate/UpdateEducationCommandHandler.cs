@@ -5,13 +5,7 @@ using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
-using MyPortfolio.Entity.Enums;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate
 {
@@ -22,8 +16,8 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate
         private readonly ICurrentUserService _currentUser;
         private readonly IMapper _mapper;
         public UpdateEducationCommandHandler(
-            IAppDbContext context, 
-            ILogger<UpdateEducationCommandHandler> logger, 
+            IAppDbContext context,
+            ILogger<UpdateEducationCommandHandler> logger,
             ICurrentUserService currentUser,
             IMapper mapper
             )

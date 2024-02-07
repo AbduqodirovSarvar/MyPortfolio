@@ -1,18 +1,12 @@
 ﻿using MyPortfolio.Entity.Abstraction;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
     public sealed record Skill : BaseEntity
     {
         public Skill(string name)
-            :base()
+            : base()
         {
             Name = name;
         }

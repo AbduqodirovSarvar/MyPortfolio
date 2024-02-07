@@ -1,20 +1,13 @@
 ﻿using MyPortfolio.Entity.Abstraction;
 using MyPortfolio.Entity.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace MyPortfolio.Entity.Entities
 {
     public sealed record UserLanguage : BaseEntity
     {
-        public UserLanguage(long languageId, long userId, LanguageLevel languageLevel):base()
+        public UserLanguage(long languageId, long userId, LanguageLevel languageLevel) : base()
         {
             LanguageId = languageId;
             UserId = userId;

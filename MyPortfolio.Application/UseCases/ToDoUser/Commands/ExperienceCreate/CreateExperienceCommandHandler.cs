@@ -7,11 +7,6 @@ using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Enums;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 {
@@ -58,7 +53,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 
                 await _context.Experiences.AddAsync(experience, cancellationToken);
 
-                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
                                                ? "Experience (ID: {Id}) created by user (ID: {_currentUser.UserId})"
                                                : "Experience (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
 

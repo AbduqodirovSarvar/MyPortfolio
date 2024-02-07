@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyPortfolio.Entity.Behaviour
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public sealed class MailValidationAttribute : ValidationAttribute
     {
-        public MailValidationAttribute() 
+        public MailValidationAttribute()
         {
             ErrorMessage = "Invalid mail address!";
         }

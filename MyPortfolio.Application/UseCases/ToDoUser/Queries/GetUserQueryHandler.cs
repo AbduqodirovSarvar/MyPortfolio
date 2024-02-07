@@ -5,11 +5,6 @@ using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
 {
@@ -48,7 +43,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
                                 .FirstOrDefaultAsync(x => (x.Id == request.Id) || (x.Email == request.Email), cancellationToken)
                                 ?? throw new NotFoundException("User not found"); ;
 
-            if(user == null)
+            if (user == null)
             {
                 _logger.LogInformation("Attempting to find user with {identifierType} identifier: {identifierValue}",
                      request.Id != null ? "Id" : "Email",
@@ -59,7 +54,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Queries
 
             _logger.LogInformation("User found with {identifierType} identifier: {identifierValue}",
                                     request.Id != null ? "Id"
-                                                       : "Email", 
+                                                       : "Email",
                                     request.Id != null ? request.Id
                                                        : request.Email);
 

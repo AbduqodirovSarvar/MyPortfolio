@@ -6,12 +6,6 @@ using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Enums;
-using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate
 {
@@ -22,7 +16,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate
         private readonly IMapper _mapper;
         private readonly ILogger<CreateUserCommand> _logger;
         private readonly IFileService _fileService;
-        private readonly IHashService _hashService; 
+        private readonly IHashService _hashService;
         public CreateUserCommandHandler(
             IAppDbContext context,
             ICurrentUserService currentUser,

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyPortfolio.Entity.Exceptions
+﻿namespace MyPortfolio.Entity.Exceptions
 {
     public class AlreadyExistsException : Exception
     {
@@ -13,12 +7,12 @@ namespace MyPortfolio.Entity.Exceptions
         {
         }
 
-        public AlreadyExistsException(string message) 
+        public AlreadyExistsException(string message)
             : base(message)
         {
         }
 
-        public AlreadyExistsException(string message, Exception innerException) 
+        public AlreadyExistsException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

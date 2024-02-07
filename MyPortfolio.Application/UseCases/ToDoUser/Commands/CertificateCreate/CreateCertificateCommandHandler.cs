@@ -6,11 +6,6 @@ using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
 {
@@ -52,10 +47,10 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
                                                     _context.Skills.FirstOrDefault(x => x.Name == skillName)
                                                     ?? _context.Skills.Add(new Skill(skillName)).Entity, certificate)).Entity)
                                             .ToList();
-                
+
                 await _context.Certificates.AddAsync(certificate, cancellationToken);
 
-                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
                                                ? "Certificate (ID: {Id}) created by user (ID: {_currentUser.UserId})"
                                                : "Certificate (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
                 return _mapper.Map<CertificateViewModel>(certificate);

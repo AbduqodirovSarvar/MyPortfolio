@@ -1,17 +1,11 @@
 ﻿using MyPortfolio.Entity.Abstraction;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
     public sealed record CertificateSkill : BaseEntity
     {
-        public CertificateSkill(long skillId,long certificateId) : base()
+        public CertificateSkill(long skillId, long certificateId) : base()
         {
             SkillId = skillId;
             CertificateId = certificateId;
@@ -21,7 +15,7 @@ namespace MyPortfolio.Entity.Entities
             SkillId = skillId;
             Certificate = certificate;
         }
-        public CertificateSkill(Skill skill,long certificateId) : base()
+        public CertificateSkill(Skill skill, long certificateId) : base()
         {
             Skill = skill;
             CertificateId = certificateId;

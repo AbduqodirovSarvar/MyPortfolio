@@ -1,19 +1,13 @@
 ﻿using MyPortfolio.Entity.Abstraction;
-using MyPortfolio.Entity.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Entity.Entities
 {
     public sealed record UserSkill : BaseEntity
     {
         public UserSkill(long skillId, long userId) : base()
-        { 
+        {
             SkillId = skillId;
             UserId = userId;
         }

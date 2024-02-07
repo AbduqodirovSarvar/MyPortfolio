@@ -6,11 +6,6 @@ using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
 using MyPortfolio.Entity.Entities;
 using MyPortfolio.Entity.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
 {
@@ -38,8 +33,8 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
             var certificate = await _context.Certificates.Include(x => x.User).Include(x => x.Skills).ThenInclude(x => x.Skill)
                                             .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == _currentUser.UserId, cancellationToken);
 
-            var changedCertificate = (certificate==null) ? throw new NotFoundException("Certificate was not found")
-                                                         : (certificate.User==null) ? throw new NotFoundException("User was not found")
+            var changedCertificate = (certificate == null) ? throw new NotFoundException("Certificate was not found")
+                                                         : (certificate.User == null) ? throw new NotFoundException("User was not found")
                                                                                     : new Certificate(request.Name ?? certificate.Name,
                                                                                                       request.Description ?? certificate.Description,
                                                                                                       request.CertificateUrl ?? certificate.CertificateUrl,
@@ -57,7 +52,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
                                                 ?? _context.Skills.Add(new Skill(skillName)).Entity, certificate)).Entity)
                                         .ToList();
 
-            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
                                            ? "Certificate (ID: {Id}) updated by user (ID: {_currentUser.UserId})"
                                            : "Certificate (ID: {Id}) couldn't update by user (ID: {_currentUser.UserId})";
 
