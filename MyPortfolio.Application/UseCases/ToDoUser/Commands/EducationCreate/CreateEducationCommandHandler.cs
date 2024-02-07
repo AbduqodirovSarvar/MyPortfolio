@@ -51,8 +51,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationCreate
 
                 await _context.Educations.AddAsync(education, cancellationToken);
 
-                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Education (ID: {certificate.Id}) created by user (ID: {_currentUser.UserId})"
-                                       : "Certificate (ID: {certificate.Id}) couldn't create by user (ID: {_currentUser.UserId})";
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                                               ? "Education (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                               : "Certificate (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
 
                 _logger.LogInformation(resultMessage, education.Id, _currentUser.UserId);
 

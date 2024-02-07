@@ -38,13 +38,13 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialCreate
             var social = await _context.Socials
                                        .FirstOrDefaultAsync(x => x.SocialNetwork == (SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork)
                                                                     && x.UserId == _currentUser.UserId, cancellationToken)
-                                       ?? new Social((SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork), request.Url);
+                                       ?? new Social((SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork), request.Url, _currentUser.UserId);
 
             await _context.Socials.AddAsync(social, cancellationToken);
-            bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
-            string resultMessage = result ? "Social network (ID: {socialId}) created by user (ID: {UserId})"
-                                      : "Social network (ID: {socialID}) couldn't create by user (ID: {UserId})";
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
+                                          ? "Social network (ID: {socialId}) created by user (ID: {UserId})"
+                                          : "Social network (ID: {socialID}) couldn't create by user (ID: {UserId})";
 
             _logger.LogInformation(resultMessage, social.Id, _currentUser.UserId);
 

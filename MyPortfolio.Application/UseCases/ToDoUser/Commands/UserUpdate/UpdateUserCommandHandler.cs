@@ -62,10 +62,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserUpdate
 
             user.Change(changedUser);
 
-            bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
-
-            string resultMessage = result ? "User (ID: {deletedUserId}) updated by user (ID: {UserId})"
-                                      : "User (ID: {deletedUserId}) couldn't update by user (ID: {UserId})";
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
+                                          ? "User (ID: {deletedUserId}) updated by user (ID: {UserId})"
+                                          : "User (ID: {deletedUserId}) couldn't update by user (ID: {UserId})";
 
             _logger.LogInformation(resultMessage, user.Id, _currentUser.UserId);
 

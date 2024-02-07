@@ -21,5 +21,6 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceUpdate
         public string? City { get; set; } = null;
         public DateOnly? FromDate { get; set; } = null;
         public DateOnly? ToDate { get; set; } = null;
+        public ICollection<string> Skills { get; set; } = new List<string>();
     }
 }

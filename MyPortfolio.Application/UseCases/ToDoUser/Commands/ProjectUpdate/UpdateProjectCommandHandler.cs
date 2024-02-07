@@ -55,14 +55,19 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectUpdate
                 await _fileService.RemoveFileAsync(project.PhotoUrl);
             }
 
-            project.Skills = (from skillName in request.Skills
-                           let skill = _context.Skills.FirstOrDefault(x => x.Name == skillName) ?? new Skill(skillName)
-                           select new ProjectSkill(skill, project)).ToList();
-
             project.Change(changedProject);
 
-            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Project (ID: {Id}) created by user (ID: {_currentUser.UserId})"
-                                       : "Project (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
+            project.Skills = request.Skills
+                                        .Select(skillName =>
+                                            project.Skills.FirstOrDefault(x => x.Skill?.Name == skillName)
+                                            ?? _context.ProjectSkills.Add(new ProjectSkill(
+                                                _context.Skills.FirstOrDefault(x => x.Name == skillName)
+                                                ?? _context.Skills.Add(new Skill(skillName)).Entity, project)).Entity)
+                                        .ToList();
+
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                                        ? "Project (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                        : "Project (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
 
             _logger.LogInformation(resultMessage, project.Id, _currentUser.UserId);
 

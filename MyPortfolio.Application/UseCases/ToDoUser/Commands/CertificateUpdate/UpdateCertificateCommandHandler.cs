@@ -35,7 +35,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
         }
         public async Task<CertificateViewModel> Handle(UpdateCertificateCommand request, CancellationToken cancellationToken)
         {
-            var certificate = await _context.Certificates.Include(x => x.User)
+            var certificate = await _context.Certificates.Include(x => x.User).Include(x => x.Skills).ThenInclude(x => x.Skill)
                                             .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == _currentUser.UserId, cancellationToken);
 
             var changedCertificate = (certificate==null) ? throw new NotFoundException("Certificate was not found")
@@ -49,8 +49,17 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
 
             certificate.Change(changedCertificate);
 
-            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Certificate (ID: {certificate.Id}) updated by user (ID: {_currentUser.UserId})"
-                                       : "Certificate (ID: {certificate.Id}) couldn't update by user (ID: {_currentUser.UserId})";
+            certificate.Skills = request.Skills
+                                        .Select(skillName =>
+                                            certificate.Skills.FirstOrDefault(x => x.Skill?.Name == skillName)
+                                            ?? _context.CertificateSkills.Add(new CertificateSkill(
+                                                _context.Skills.FirstOrDefault(x => x.Name == skillName)
+                                                ?? _context.Skills.Add(new Skill(skillName)).Entity, certificate)).Entity)
+                                        .ToList();
+
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                                           ? "Certificate (ID: {Id}) updated by user (ID: {_currentUser.UserId})"
+                                           : "Certificate (ID: {Id}) couldn't update by user (ID: {_currentUser.UserId})";
 
             _logger.LogInformation(resultMessage, certificate.Id, _currentUser.UserId);
 

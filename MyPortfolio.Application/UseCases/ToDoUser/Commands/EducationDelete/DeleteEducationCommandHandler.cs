@@ -36,8 +36,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationDelete
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
-            string resultMessage = result ? "Education (ID: {EducationId}) removed by user (ID: {UserId})"
-                                       : "Education (ID: {EducationId}) couldn't remove by user (ID: {UserId})";
+            string resultMessage = result 
+                                       ? "Education (ID: {Id}) removed by user (ID: {UserId})"
+                                       : "Education (ID: {Id}) couldn't remove by user (ID: {UserId})";
 
             _logger.LogInformation(resultMessage, education.Id, _currentUser.UserId);
 

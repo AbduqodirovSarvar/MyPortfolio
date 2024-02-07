@@ -79,8 +79,8 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
             await _context.SaveChangesAsync(cancellationToken);
 
             string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
-                ? $"Skills added by user (ID: {_currentUser.UserId})"
-                : $"Skills couldn't be added by user (ID: {_currentUser.UserId})";
+                                        ? $"Skills added by user (ID: {_currentUser.UserId})"
+                                        : $"Skills couldn't be added by user (ID: {_currentUser.UserId})";
 
             _logger.LogInformation(resultMessage, _currentUser.UserId);
 

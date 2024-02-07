@@ -50,10 +50,17 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceCreate
 
                 experience.User = user;
 
+                experience.Skills = request.Skills
+                                            .Select(skillName => _context.ExperienceSkills.Add(new ExperienceSkill(
+                                                    _context.Skills.FirstOrDefault(x => x.Name == skillName)
+                                                    ?? _context.Skills.Add(new Skill(skillName)).Entity, experience)).Entity)
+                                            .ToList();
+
                 await _context.Experiences.AddAsync(experience, cancellationToken);
 
-                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Experience (ID: {Id}) created by user (ID: {_currentUser.UserId})"
-                                       : "Experience (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                                               ? "Experience (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                               : "Experience (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
 
                 _logger.LogInformation(resultMessage, experience.Id, _currentUser.UserId);
             }

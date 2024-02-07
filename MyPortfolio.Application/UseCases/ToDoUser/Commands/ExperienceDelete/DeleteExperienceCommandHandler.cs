@@ -36,8 +36,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ExperienceDelete
             _context.Experiences.Remove(experience);
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
-            string resultMessage = result ? "Experience (ID: {ExperienceId}) removed by user (ID: {UserId})"
-                                       : "Experience (ID: {ExperienceId}) couldn't remove by user (ID: {UserId})";
+            string resultMessage = result 
+                                       ? "Experience (ID: {Id}) removed by user (ID: {UserId})"
+                                       : "Experience (ID: {Id}) couldn't remove by user (ID: {UserId})";
 
             _logger.LogInformation(resultMessage, experience.Id, _currentUser.UserId);
 

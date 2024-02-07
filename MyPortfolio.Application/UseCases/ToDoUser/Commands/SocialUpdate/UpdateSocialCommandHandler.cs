@@ -37,14 +37,14 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialUpdate
 
             var changedSocial = new Social(
                                         request.SocialNetwork == null ? social.SocialNetwork : (SocialNetwork)Enum.Parse(typeof(SocialNetwork), request.SocialNetwork),
-                                        request.Url ?? social.Url
+                                        request.Url ?? social.Url,
+                                        _currentUser.UserId
                                         );
 
             social.Change(changedSocial);
 
-            bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
-
-            string resultMessage = result ? "Social network (ID: {socialId}) updated by user (ID: {UserId})"
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                                      ? "Social network (ID: {socialId}) updated by user (ID: {UserId})"
                                       : "Social network (ID: {socialID}) couldn't update by user (ID: {UserId})";
 
             _logger.LogInformation(resultMessage, social.Id, _currentUser.UserId);

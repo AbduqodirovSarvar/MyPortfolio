@@ -20,5 +20,6 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateUpdate
         public string? CertificateUrl { get; set; } = null;
         public string? Credential { get; set; } = null;
         public DateOnly? Issued { get; set; } = null;
+        public ICollection<string> Skills { get; set; } = new List<string>();
     }
 }

@@ -36,8 +36,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateDelete
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
-            string resultMessage = result ? "Certificate (ID: {certificate.Id}) removed by user (ID: {_currentUser.UserId})"
-                                       : "Certificate (ID: {certificate.Id}) couldn't remove by user (ID: {_currentUser.UserId})";
+            string resultMessage = result 
+                                       ? "Certificate (ID: {Id}) removed by user (ID: {_currentUser.UserId})"
+                                       : "Certificate (ID: {Id}) couldn't remove by user (ID: {_currentUser.UserId})";
 
             _logger.LogInformation(resultMessage, certificate.Id, _currentUser.UserId);
 

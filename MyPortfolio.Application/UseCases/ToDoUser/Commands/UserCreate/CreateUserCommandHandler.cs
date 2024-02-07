@@ -60,10 +60,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.UserCreate
 
             await _context.Users.AddAsync(user, cancellationToken);
 
-            bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
-
-            string resultMessage = result ? "User (ID: {userId}) created)"
-                                      : "User (ID: {userId}) couldn't create";
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
+                                          ? "User (ID: {userId}) created)"
+                                          : "User (ID: {userId}) couldn't create";
 
             _logger.LogInformation(resultMessage, user.Id, _currentUser.UserId);
 

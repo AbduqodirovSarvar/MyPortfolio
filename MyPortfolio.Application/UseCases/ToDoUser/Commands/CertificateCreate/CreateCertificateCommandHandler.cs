@@ -47,10 +47,17 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.CertificateCreate
                                                 request.Issued,
                                                 _currentUser.UserId);
 
+                certificate.Skills = request.Skills
+                                            .Select(skillName => _context.CertificateSkills.Add(new CertificateSkill(
+                                                    _context.Skills.FirstOrDefault(x => x.Name == skillName)
+                                                    ?? _context.Skills.Add(new Skill(skillName)).Entity, certificate)).Entity)
+                                            .ToList();
+                
                 await _context.Certificates.AddAsync(certificate, cancellationToken);
 
-                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Certificate (ID: {certificate.Id}) created by user (ID: {_currentUser.UserId})"
-                                       : "Certificate (ID: {certificate.Id}) couldn't create by user (ID: {_currentUser.UserId})";
+                string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 
+                                               ? "Certificate (ID: {Id}) created by user (ID: {_currentUser.UserId})"
+                                               : "Certificate (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";
                 return _mapper.Map<CertificateViewModel>(certificate);
             }
             catch (Exception ex)

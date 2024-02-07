@@ -39,7 +39,8 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SocialDelete
 
             bool result = (await _context.SaveChangesAsync(cancellationToken)) > 0;
 
-            string resultMessage = result ? "Social network (ID: {socialId}) removed by user (ID: {UserId})"
+            string resultMessage = result 
+                                      ? "Social network (ID: {socialId}) removed by user (ID: {UserId})"
                                       : "Social network (ID: {socialID}) couldn't remove by user (ID: {UserId})";
 
             _logger.LogInformation(resultMessage, social.Id, _currentUser.UserId);

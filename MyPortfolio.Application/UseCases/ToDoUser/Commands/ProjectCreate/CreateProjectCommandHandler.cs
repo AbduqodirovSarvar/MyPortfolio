@@ -44,17 +44,9 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
                                 request.UrlToCode,
                                 request.UrlToSite);
 
-            foreach (var skillName in request.Skills)
-            {
-                var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillName, cancellationToken) ?? new Skill(skillName);
-                if (skill == null)
-                {
-                    skill = new Skill(skillName);
-                    await _context.Skills.AddAsync(skill, cancellationToken);
-                }
-
-                project.Skills.Add(new ProjectSkill(skill, project.Id));
-            }
+            project.Skills = (from skillName in request.Skills
+                              let skill = _context.Skills.FirstOrDefault(x => x.Name == skillName) ?? _context.Skills.Add(new Skill(skillName)).Entity
+                              select _context.ProjectSkills.Add(new ProjectSkill(skill, project)).Entity).ToList();
 
             string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Project (ID: {Id}) created by user (ID: {_currentUser.UserId})"
                                        : "Project (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";

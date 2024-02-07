@@ -48,10 +48,14 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.EducationUpdate
                                                                                               request.ToDate ?? education.ToDate,
                                                                                               request.EducationWebSiteUrl ?? education.EducationWebSiteUrl,
                                                                                               education.UserId);
-
-            _logger.LogInformation("Education (ID: {education.Id}) updated by user (ID: {_currentUser.UserId})", education.Id, _currentUser.UserId);
-
             education.Change(changedEducation);
+
+            string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
+                                           ? "Education (ID: {Id}) updated by user (ID: {_currentUser.UserId})"
+                                           : "Education (ID: {Id}) couldn't update by user (ID: {_currentUser.UserId})";
+
+            _logger.LogInformation(resultMessage, education.Id, _currentUser.UserId);
+
             return _mapper.Map<EducationViewModel>(education);
         }
     }

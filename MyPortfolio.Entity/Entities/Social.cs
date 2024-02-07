@@ -13,11 +13,23 @@ namespace MyPortfolio.Entity.Entities
     {
         public Social(
             SocialNetwork socialNetwork,
-            string url
+            string url,
+            long userId
         ) : base()
         {
             SocialNetwork = socialNetwork;
             Url = url;
+            UserId = userId;
+        }
+        public Social(
+            SocialNetwork socialNetwork,
+            string url,
+            User user
+        ) : base()
+        {
+            SocialNetwork = socialNetwork;
+            Url = url;
+            User = user;
         }
         [Required]
         public SocialNetwork SocialNetwork { get; private set; }
