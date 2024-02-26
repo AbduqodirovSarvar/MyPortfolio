@@ -17,6 +17,7 @@ namespace MyPortfolio.Application
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IEmailService, EmailService>();
             var mappingconfig = new MapperConfiguration(x =>
             {
                 x.AddProfile(new MappingProfile());

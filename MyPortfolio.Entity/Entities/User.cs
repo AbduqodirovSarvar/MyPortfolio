@@ -87,5 +87,11 @@ namespace MyPortfolio.Entity.Entities
 
             return this;
         }
+
+        public User ChangePassword(string passwordHash)
+        {
+            Password = passwordHash;
+            return this;
+        }
     }
 }
