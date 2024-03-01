@@ -9,33 +9,36 @@ using MyPortfolio.Entity.Exceptions;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 {
-    public sealed class CreateSkillCommandHandler : IRequestHandler<CreateSkillCommand, List<SkillViewModel>>
+    public sealed class CreateSkillCommandHandler : IRequestHandler<CreateSkillCommand, SkillViewModel>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly ILogger<CreateSkillCommandHandler> _logger;
         private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
         public CreateSkillCommandHandler(
             IAppDbContext context,
             ICurrentUserService currentUser,
             ILogger<CreateSkillCommandHandler> logger,
-            IMapper mapper
+            IMapper mapper,
+            IFileService fileService
             )
         {
             _context = context;
             _currentUser = currentUser;
             _logger = logger;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
-        public async Task<List<SkillViewModel>> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
+        public async Task<SkillViewModel> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.Users
                 .Include(x => x.Skills).ThenInclude(x => x.Skill)
                 .FirstOrDefaultAsync(x => x.Id == _currentUser.UserId, cancellationToken)
                 ?? throw new NotFoundException("User not found");
 
-            var (existedSkills, newSkills) = request.Names
+            /*var (existedSkills, newSkills) = request.Names
                                             .Select(skillName => (
                                                 Skill: _context.Skills.FirstOrDefault(s => s.Name == skillName),
                                                 SkillName: skillName,
@@ -68,7 +71,15 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
                 .Select(skill => new UserSkill(skill, user))
                 .ToList();
 
-            await _context.UserSkills.AddRangeAsync(userSkillCreateList, cancellationToken);
+            await _context.UserSkills.AddRangeAsync(userSkillCreateList, cancellationToken);*/
+
+            var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken)
+                                            ?? (await _context.Skills.AddAsync(new Skill(request.Name)
+                                            {
+                                                PhotoUrl = await _fileService.SaveFileAsync(request.Photo)
+                                            }, cancellationToken)).Entity;
+
+            await _context.UserSkills.AddAsync(new UserSkill(skill, user));
             await _context.SaveChangesAsync(cancellationToken);
 
             string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
@@ -77,7 +88,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 
             _logger.LogInformation(resultMessage, _currentUser.UserId);
 
-            return _mapper.Map<List<SkillViewModel>>(user.Skills.Select(x => x.Skill).ToList());
+            return _mapper.Map<SkillViewModel>(user.Skills.Select(x => x.Skill).ToList());
         }
 
     }

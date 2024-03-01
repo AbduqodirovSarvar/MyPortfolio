@@ -14,6 +14,7 @@ namespace MyPortfolio.Entity.Entities
         [Required]
         [MaxLength(255)]
         public string Name { get; private set; }
+        public Uri? PhotoUrl { get; set; }
         public ICollection<UserSkill> Users { get; set; } = new HashSet<UserSkill>();
         public ICollection<CertificateSkill> Certificates { get; set; } = new HashSet<CertificateSkill>();
         public ICollection<ExperienceSkill> Experiences { get; set; } = new HashSet<ExperienceSkill>();
