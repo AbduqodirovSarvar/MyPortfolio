@@ -15,7 +15,7 @@ namespace MyPortfolio.Presentation.Controller
             : base(mediator) { }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateSkillCommand command)
+        public async Task<IActionResult> Create([FromForm] CreateSkillCommand command)
         {
             try
             {
