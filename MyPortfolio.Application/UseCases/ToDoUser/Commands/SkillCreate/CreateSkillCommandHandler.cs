@@ -9,7 +9,7 @@ using MyPortfolio.Entity.Exceptions;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 {
-    public sealed class CreateSkillCommandHandler : IRequestHandler<CreateSkillCommand, SkillViewModel>
+    public sealed class CreateSkillCommandHandler : IRequestHandler<CreateSkillCommand, List<SkillViewModel>>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
@@ -31,7 +31,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
             _fileService = fileService;
         }
 
-        public async Task<SkillViewModel> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
+        public async Task<List<SkillViewModel>> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.Users
                 .Include(x => x.Skills).ThenInclude(x => x.Skill)
@@ -88,7 +88,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 
             _logger.LogInformation(resultMessage, _currentUser.UserId);
 
-            return _mapper.Map<SkillViewModel>(user.Skills.Select(x => x.Skill).ToList());
+            return _mapper.Map<List<SkillViewModel>>(user.Skills.Select(x => x.Skill).ToList());
         }
 
     }

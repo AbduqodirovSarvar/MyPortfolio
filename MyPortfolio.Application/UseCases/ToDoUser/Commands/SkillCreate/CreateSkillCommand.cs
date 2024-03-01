@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 {
-    public sealed class CreateSkillCommand : IRequest<SkillViewModel>
+    public sealed class CreateSkillCommand : IRequest<List<SkillViewModel>>
     {
         [Required]
         public string Name { get; set; } = default!;
