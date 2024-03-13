@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.Application.Abstractions.Interfaces;
 using MyPortfolio.Application.Models.ViewModels;
+using MyPortfolio.Application.Services;
 using MyPortfolio.Entity.Entities;
 
 namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
@@ -12,20 +14,20 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly ILogger<CreateProjectCommandHandler> _logger;
-        private readonly IFileService _saveFileService;
+        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
         public CreateProjectCommandHandler(
             IAppDbContext appDbContext,
             ICurrentUserService currentUserService,
             ILogger<CreateProjectCommandHandler> logger,
-            IFileService saveFileService,
+            IFileService FileService,
             IMapper mapper
             )
         {
             _context = appDbContext;
             _currentUser = currentUserService;
             _logger = logger;
-            _saveFileService = saveFileService;
+            _fileService = FileService;
             _mapper = mapper;
         }
         async Task<ProjectViewModel> IRequestHandler<CreateProjectCommand, ProjectViewModel>.Handle(CreateProjectCommand request, CancellationToken cancellationToken)
@@ -33,14 +35,24 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
             var project = new Project(
                                 request.Name,
                                 request.Description,
-                                (await _saveFileService.SaveFileAsync(request.Photo))?.ToString(),
+                                (await _fileService.SaveFileAsync(request.Photo))?.ToString(),
                                 _currentUser.UserId,
                                 request.UrlToCode,
                                 request.UrlToSite);
 
-            project.Skills = (from skillName in request.Skills
-                              let skill = _context.Skills.FirstOrDefault(x => x.Name == skillName) ?? _context.Skills.Add(new Skill(skillName)).Entity
-                              select _context.ProjectSkills.Add(new ProjectSkill(skill, project)).Entity).ToList();
+            foreach (var skill in request.Skills)
+            {
+                var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skill.Name, cancellationToken)
+                                                         ?? (await _context.Skills.AddAsync(new Skill(skill.Name)
+                                                         {
+                                                             PhotoUrl = await _fileService.SaveFileAsync(skill.Photo)
+                                                         }, cancellationToken)).Entity;
+
+                await _context.ProjectSkills.AddAsync(new ProjectSkill(existingSkill, project), cancellationToken);
+            }
+
+            
+
 
             string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Project (ID: {Id}) created by user (ID: {_currentUser.UserId})"
                                        : "Project (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";

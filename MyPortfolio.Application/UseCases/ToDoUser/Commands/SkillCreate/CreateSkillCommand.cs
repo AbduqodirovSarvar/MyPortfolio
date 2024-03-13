@@ -10,6 +10,5 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
         [Required]
         public string Name { get; set; } = default!;
         public IFormFile? Photo { get; set; }
-
     }
 }

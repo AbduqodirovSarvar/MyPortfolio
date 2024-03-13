@@ -79,7 +79,7 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
                                                 PhotoUrl = await _fileService.SaveFileAsync(request.Photo)
                                             }, cancellationToken)).Entity;
 
-            await _context.UserSkills.AddAsync(new UserSkill(skill, user));
+            await _context.UserSkills.AddAsync(new UserSkill(skill, user), cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
             string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0
