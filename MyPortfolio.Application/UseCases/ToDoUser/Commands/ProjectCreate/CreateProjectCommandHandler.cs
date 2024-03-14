@@ -40,19 +40,13 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
                                 request.UrlToCode,
                                 request.UrlToSite);
 
-            foreach (var skill in request.Skills)
+            foreach (var skillName in request.Skills)
             {
-                var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skill.Name, cancellationToken)
-                                                         ?? (await _context.Skills.AddAsync(new Skill(skill.Name)
-                                                         {
-                                                             PhotoUrl = await _fileService.SaveFileAsync(skill.Photo)
-                                                         }, cancellationToken)).Entity;
+                var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillName, cancellationToken)
+                                                         ?? (await _context.Skills.AddAsync(new Skill(skillName), cancellationToken)).Entity;
 
                 await _context.ProjectSkills.AddAsync(new ProjectSkill(existingSkill, project), cancellationToken);
             }
-
-            
-
 
             string resultMessage = (await _context.SaveChangesAsync(cancellationToken)) > 0 ? "Project (ID: {Id}) created by user (ID: {_currentUser.UserId})"
                                        : "Project (ID: {Id}) couldn't create by user (ID: {_currentUser.UserId})";

@@ -73,11 +73,23 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.SkillCreate
 
             await _context.UserSkills.AddRangeAsync(userSkillCreateList, cancellationToken);*/
 
-            var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken)
-                                            ?? (await _context.Skills.AddAsync(new Skill(request.Name)
-                                            {
-                                                PhotoUrl = await _fileService.SaveFileAsync(request.Photo)
-                                            }, cancellationToken)).Entity;
+            var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken);
+            if (skill == null)
+            {
+                skill = (await _context.Skills.AddAsync(new Skill(request.Name)
+                {
+                    PhotoUrl = await _fileService.SaveFileAsync(request.Photo)
+                }, cancellationToken)).Entity;
+            }
+            else
+            {
+                if(request.Photo != null)
+                {
+                    var skillName = skill.PhotoUrl?.ToString().Split("/").Last();
+                    skill.PhotoUrl = await _fileService.SaveFileAsync(request.Photo);
+                    await _fileService.RemoveFileAsync(skillName);
+                }
+            }
 
             await _context.UserSkills.AddAsync(new UserSkill(skill, user), cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);

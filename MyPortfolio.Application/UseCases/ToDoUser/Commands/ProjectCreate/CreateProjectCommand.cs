@@ -12,6 +12,6 @@ namespace MyPortfolio.Application.UseCases.ToDoUser.Commands.ProjectCreate
         public IFormFile Photo { get; set; } = null!;
         public string UrlToCode { get; set; } = null!;
         public string UrlToSite { get; set; } = null!;
-        public ICollection<CreateSkillCommand> Skills { get; set; } = new List<CreateSkillCommand>();
+        public ICollection<string> Skills { get; set; } = new List<string>();
     }
 }
