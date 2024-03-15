@@ -2,8 +2,16 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 5034
 EXPOSE 443
+
+# Define environment variables
+ENV ASPNETCORE_URLS=http://+:5034
+ENV ConnectionStrings__SQLiteConnection=Data
+ENV Source=/app/DB/Portfolio.db
+ENV JWTConfiguration__ValidAudience=MyPortfolio
+ENV JWTConfiguration__ValidIssuer=localhost
+ENV JWTConfiguration__Secret=MyPortfolioSecretKeyorSecretWordForJwtSecurity
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
