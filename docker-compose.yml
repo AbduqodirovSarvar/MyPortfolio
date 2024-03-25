@@ -26,8 +26,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nginx_container
+    depends_on:
+      - webapiportfolio
     ports:
-      - "443:443"
+      - "4443:4443"
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt/
     networks:
