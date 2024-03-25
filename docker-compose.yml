@@ -8,8 +8,8 @@ services:
     container_name: webapiportfolio
     restart: always
     volumes:
-      - /root/MyPortfolio/DB:/app/DB
-      - /root/MyPortfolio/Files:/app/Files
+      - /root/Sarvar/DB:/app/DB
+      - /root/Sarvar/Files:/app/Files
     ports:
       - "5034:5035"
     networks:
