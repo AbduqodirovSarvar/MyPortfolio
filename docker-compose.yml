@@ -11,7 +11,7 @@ services:
       - /root/Sarvar/DB:/app/DB
       - /root/Sarvar/Files:/app/Files
     ports:
-      - "5034:5035"
+      - "5034:5034"
     networks:
       - network_for_portfolio
 
@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     container_name: nginx_container
     ports:
-      - "443:443"
+      - "4443:4443"
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt/
     networks:
