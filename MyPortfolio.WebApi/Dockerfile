@@ -29,7 +29,7 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Define network configuration
-ARG NETWORK=network_for_portfolio
-RUN --network=${NETWORK} echo "Network configuration added"
+#ARG NETWORK=network_for_portfolio
+#RUN --network=${NETWORK} echo "Network configuration added"
 
 ENTRYPOINT ["dotnet", "MyPortfolio.WebApi.dll"]
